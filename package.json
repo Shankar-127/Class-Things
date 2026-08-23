@@ -1,9 +1,9 @@
 {
-  "name": "class-things-workspace",
+  "name": "class-things",
+  "version": "1.0.0",
   "private": true,
+  "description": "A dependency-free Class Things study-resource portal for GitHub Pages.",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "check": "node --check script.js && node --check site-data.js"
   }
 }
