@@ -2,8 +2,8 @@
   "name": "class-things-workspace",
   "private": true,
   "scripts": {
-    "dev": "npm --prefix app run dev --",
-    "build": "npm --prefix app run build --",
-    "preview": "npm --prefix app run preview --"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   }
 }
