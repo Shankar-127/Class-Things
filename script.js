@@ -36,11 +36,11 @@
   };
 
   const tocItems = [
-    ['introduction', '1. Introduction'],
-    ['divergence', '2. Divergence'],
-    ['curl', '3. Curl'],
-    ['identities', '4. Vector Identities'],
-    ['examples', '5. Worked Examples']
+    ['overview', 'Overview'],
+    ['topics', 'Key topics'],
+    ['focus', 'Focus'],
+    ['tip', 'Study tip'],
+    ['status', 'Status']
   ];
 
   const state = {
@@ -445,13 +445,14 @@
         '<iframe class="pdf-embed" src="' + escapeHtml(resource.url) + '" frameborder="0" allowfullscreen></iframe>' +
       '</div>';
     } else {
+      var guide = subjectGuides[resource && resource.subject ? resource.subject : ''] || {};
       mainContent = '<article class="document-canvas">' +
-        '<div class="paper-meta"><span class="paper-dot"></span> ' + escapeHtml(resource && resource.subject ? resource.subject.toUpperCase() : 'SUBJECT') + ' &middot; UNIT 3 <span>5 min read</span></div>' +
-        '<section id="introduction"><h1>Vector Calculus</h1><h2>Divergence &amp; Curl</h2><p class="lead">Vector calculus gives us a beautiful way to describe how a vector field behaves at every point in space. Two of its most useful tools are <b>divergence</b> and <b>curl</b>.</p><div class="callout">' + icon('sparkles', 19) + '<p><strong>Key idea</strong> &mdash; Divergence measures outflow; curl measures rotation.</p></div></section>' +
-        '<section id="divergence"><h3>2. Divergence</h3><p>The divergence of a vector field tells us how much the field spreads outward from a point. For a vector field <i>F</i> = P<i>i</i> + Q<i>j</i> + R<i>k</i>:</p><div class="equation">&nabla; &middot; <b>F</b> = <span>&part;P</span>/<span>&part;x</span> + <span>&part;Q</span>/<span>&part;y</span> + <span>&part;R</span>/<span>&part;z</span></div><ul><li>Positive divergence: the point behaves like a source.</li><li>Negative divergence: the point behaves like a sink.</li><li>Zero divergence: no net flow leaves the point.</li></ul></section>' +
-        '<section id="curl"><h3>3. Curl</h3><p>While divergence captures expansion, curl measures the local tendency of a field to rotate around a point.</p><div class="equation equation-curl">&nabla; &times; <b>F</b> = <span class="matrix">| i &nbsp; j &nbsp; k<br>&part;/&part;x &nbsp; &part;/&part;y &nbsp; &part;/&part;z<br>P &nbsp; Q &nbsp; R |</span></div></section>' +
-        '<section id="identities"><h3>4. Vector identities</h3><div class="identity-grid"><div><span>&nabla; &middot; (&nabla; &times; F)</span><strong>= 0</strong></div><div><span>&nabla; &times; (&nabla;&phi;)</span><strong>= 0</strong></div></div></section>' +
-        '<section id="examples"><h3>5. Worked example</h3><p>For <i>F</i> = x&sup2;<i>i</i> + yz<i>j</i> + xz<i>k</i>, calculate the divergence by differentiating each component with respect to its matching coordinate.</p><div class="answer-box">' + icon('check-circle-2', 18) + '<span>Answer: &nabla; &middot; F = 2x + x + y</span></div></section>' +
+        '<div class="paper-meta"><span class="paper-dot"></span> ' + escapeHtml(resource && resource.subject ? resource.subject.toUpperCase() : 'SUBJECT') + '</div>' +
+        '<section id="overview"><h1>' + escapeHtml(guide.title || (resource && resource.subject) || 'Subject') + '</h1><p class="lead">' + escapeHtml(guide.summary || 'No overview available for this subject yet.') + '</p></section>' +
+        '<section id="topics"><h3>Key topics</h3>' + (guide.topics && guide.topics.length ? ('<ul>' + guide.topics.map(function(t){ return '<li>' + escapeHtml(t) + '</li>'; }).join('') + '</ul>') : '<p>No topics listed yet.</p>') + '</section>' +
+        '<section id="focus"><h3>Focus</h3><p>' + escapeHtml(guide.focus || '—') + '</p></section>' +
+        '<section id="tip"><h3>Study tip</h3><p>' + escapeHtml(guide.tip || '—') + '</p></section>' +
+        '<section id="status"><h3>Status</h3><p>' + escapeHtml(guide.status || 'No files yet for this subject.') + '</p></section>' +
       '</article>';
     }
 
