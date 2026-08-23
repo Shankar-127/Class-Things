@@ -44,6 +44,7 @@ function localClassAssets() {
 }
 
 export default defineConfig({
+  base: '/Class-Things/',
   root: workspaceRoot,
   plugins: [react(), localClassAssets()],
   publicDir: false,
@@ -58,7 +59,7 @@ export default defineConfig({
     postcss: appRoot,
   },
   build: {
-    outDir: resolve(appRoot, 'dist'),
+    outDir: resolve(appRoot, 'docs'),
     emptyOutDir: true,
   },
 })

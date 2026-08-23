@@ -8,6 +8,7 @@
     "dev": "vite",
     "prebuild": "node scripts/generate-source-manifest.mjs",
     "build": "vite build",
+    "postbuild": "node -e \"const fs=require('fs');fs.copyFileSync('docs/index.html','docs/404.html')\"",
     "preview": "vite preview"
   },
   "dependencies": {
