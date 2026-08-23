@@ -438,6 +438,23 @@
       '</button>';
     }).join('');
 
+    var mainContent = '';
+    if (resource && resource.type === 'PDF') {
+      // Embed the PDF directly for a focused preview. Use an iframe so the browser's PDF viewer handles rendering.
+      mainContent = '<div class="pdf-embed-wrap">' +
+        '<iframe class="pdf-embed" src="' + escapeHtml(resource.url) + '" frameborder="0" allowfullscreen></iframe>' +
+      '</div>';
+    } else {
+      mainContent = '<article class="document-canvas">' +
+        '<div class="paper-meta"><span class="paper-dot"></span> ' + escapeHtml(resource && resource.subject ? resource.subject.toUpperCase() : 'SUBJECT') + ' &middot; UNIT 3 <span>5 min read</span></div>' +
+        '<section id="introduction"><h1>Vector Calculus</h1><h2>Divergence &amp; Curl</h2><p class="lead">Vector calculus gives us a beautiful way to describe how a vector field behaves at every point in space. Two of its most useful tools are <b>divergence</b> and <b>curl</b>.</p><div class="callout">' + icon('sparkles', 19) + '<p><strong>Key idea</strong> &mdash; Divergence measures outflow; curl measures rotation.</p></div></section>' +
+        '<section id="divergence"><h3>2. Divergence</h3><p>The divergence of a vector field tells us how much the field spreads outward from a point. For a vector field <i>F</i> = P<i>i</i> + Q<i>j</i> + R<i>k</i>:</p><div class="equation">&nabla; &middot; <b>F</b> = <span>&part;P</span>/<span>&part;x</span> + <span>&part;Q</span>/<span>&part;y</span> + <span>&part;R</span>/<span>&part;z</span></div><ul><li>Positive divergence: the point behaves like a source.</li><li>Negative divergence: the point behaves like a sink.</li><li>Zero divergence: no net flow leaves the point.</li></ul></section>' +
+        '<section id="curl"><h3>3. Curl</h3><p>While divergence captures expansion, curl measures the local tendency of a field to rotate around a point.</p><div class="equation equation-curl">&nabla; &times; <b>F</b> = <span class="matrix">| i &nbsp; j &nbsp; k<br>&part;/&part;x &nbsp; &part;/&part;y &nbsp; &part;/&part;z<br>P &nbsp; Q &nbsp; R |</span></div></section>' +
+        '<section id="identities"><h3>4. Vector identities</h3><div class="identity-grid"><div><span>&nabla; &middot; (&nabla; &times; F)</span><strong>= 0</strong></div><div><span>&nabla; &times; (&nabla;&phi;)</span><strong>= 0</strong></div></div></section>' +
+        '<section id="examples"><h3>5. Worked example</h3><p>For <i>F</i> = x&sup2;<i>i</i> + yz<i>j</i> + xz<i>k</i>, calculate the divergence by differentiating each component with respect to its matching coordinate.</p><div class="answer-box">' + icon('check-circle-2', 18) + '<span>Answer: &nabla; &middot; F = 2x + x + y</span></div></section>' +
+      '</article>';
+    }
+
     return '<main class="preview-page">' +
       '<div class="preview-topbar"><div class="container preview-topbar-inner">' +
         '<button type="button" class="back-button" data-action="back-preview">' + icon('chevron-left', 20) + ' <span>Back to ' + escapeHtml(resource && resource.subject ? resource.subject : 'Subjects') + '</span></button>' +
@@ -451,14 +468,7 @@
       '<div class="preview-mobile-tools container"><button type="button" data-action="scroll-to" data-section="contents">' + icon('layout-grid', 16) + ' Contents</button><button type="button" data-action="scroll-to" data-section="details">' + icon('list-filter', 16) + ' Details</button></div>' +
       '<div class="preview-layout container">' +
         '<aside class="toc-card" id="contents"><span class="aside-title">On this page</span>' + toc + '<div class="toc-divider"></div><span class="toc-progress"><span></span><em>18% read</em></span></aside>' +
-        '<article class="document-canvas">' +
-          '<div class="paper-meta"><span class="paper-dot"></span> ' + escapeHtml(resource && resource.subject ? resource.subject.toUpperCase() : 'SUBJECT') + ' &middot; UNIT 3 <span>5 min read</span></div>' +
-          '<section id="introduction"><h1>Vector Calculus</h1><h2>Divergence &amp; Curl</h2><p class="lead">Vector calculus gives us a beautiful way to describe how a vector field behaves at every point in space. Two of its most useful tools are <b>divergence</b> and <b>curl</b>.</p><div class="callout">' + icon('sparkles', 19) + '<p><strong>Key idea</strong> &mdash; Divergence measures outflow; curl measures rotation.</p></div></section>' +
-          '<section id="divergence"><h3>2. Divergence</h3><p>The divergence of a vector field tells us how much the field spreads outward from a point. For a vector field <i>F</i> = P<i>i</i> + Q<i>j</i> + R<i>k</i>:</p><div class="equation">&nabla; &middot; <b>F</b> = <span>&part;P</span>/<span>&part;x</span> + <span>&part;Q</span>/<span>&part;y</span> + <span>&part;R</span>/<span>&part;z</span></div><ul><li>Positive divergence: the point behaves like a source.</li><li>Negative divergence: the point behaves like a sink.</li><li>Zero divergence: no net flow leaves the point.</li></ul></section>' +
-          '<section id="curl"><h3>3. Curl</h3><p>While divergence captures expansion, curl measures the local tendency of a field to rotate around a point.</p><div class="equation equation-curl">&nabla; &times; <b>F</b> = <span class="matrix">| i &nbsp; j &nbsp; k<br>&part;/&part;x &nbsp; &part;/&part;y &nbsp; &part;/&part;z<br>P &nbsp; Q &nbsp; R |</span></div></section>' +
-          '<section id="identities"><h3>4. Vector identities</h3><div class="identity-grid"><div><span>&nabla; &middot; (&nabla; &times; F)</span><strong>= 0</strong></div><div><span>&nabla; &times; (&nabla;&phi;)</span><strong>= 0</strong></div></div></section>' +
-          '<section id="examples"><h3>5. Worked example</h3><p>For <i>F</i> = x&sup2;<i>i</i> + yz<i>j</i> + xz<i>k</i>, calculate the divergence by differentiating each component with respect to its matching coordinate.</p><div class="answer-box">' + icon('check-circle-2', 18) + '<span>Answer: &nabla; &middot; F = 2x + x + y</span></div></section>' +
-        '</article>' +
+        mainContent +
         '<aside class="details-stack" id="details"><div class="details-card"><span class="aside-title">File details</span><dl>' + details + '</dl></div><div class="related-card"><div class="related-head"><span class="aside-title">Related files</span><button type="button" data-action="back-preview">See all</button></div>' + related + '</div></aside>' +
       '</div>' +
     '</main>';
