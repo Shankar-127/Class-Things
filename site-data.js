@@ -8,7 +8,7 @@
   const subjects = [
     { name: 'CM LAB', fileCount: 0 },
     { name: 'DAA', fileCount: 2 },
-    { name: 'DBMS', fileCount: 0 },
+    { name: 'DBMS', fileCount: 1 },
     { name: 'DBMS LAB', fileCount: 0 },
     { name: 'DEV LAB', fileCount: 0 },
     { name: 'I & E', fileCount: 2 },
@@ -19,6 +19,21 @@
   ];
 
   const resources = [
+    {
+      id: 'DBMS/DBMS_Notes-1.pdf',
+      subject: 'DBMS',
+      filename: 'DBMS_Notes-1.pdf',
+      title: 'DBMS Notes - Unit 1',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 1',
+      summary: 'DBMS notes placeholder.',
+      topics: ['ER model', 'SQL', 'Normalisation'],
+      size: '1 KB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515431681,
+      url: './Sources/DBMS/DBMS_Notes-1.pdf'
+    },
     {
       id: 'JAVA LAB/JLP5.pdf',
       subject: 'JAVA LAB',
@@ -344,7 +359,7 @@
     }
   };
 
-  const summary = { subjectCount: 10, fileCount: 16 };
+  const summary = { subjectCount: 10, fileCount: 17 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };
 }());
