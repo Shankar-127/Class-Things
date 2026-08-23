@@ -11,7 +11,7 @@ export const sourceSubjects = [
   },
   {
     "name": "DBMS",
-    "fileCount": 0
+    "fileCount": 1
   },
   {
     "name": "DBMS LAB",
@@ -44,6 +44,17 @@ export const sourceSubjects = [
 ]
 
 export const sourceResources = [
+  {
+    "id": "DBMS/DBMS_Notes-1.pdf",
+    "subject": "DBMS",
+    "filename": "DBMS_Notes-1.pdf",
+    "title": "DBMS_Notes-1",
+    "type": "PDF",
+    "size": "1 KB",
+    "modifiedAt": "Aug 24, 2026",
+    "modifiedMs": 1787515431681,
+    "url": "/sources/DBMS/DBMS_Notes-1.pdf"
+  },
   {
     "id": "JAVA LAB/JLP5.pdf",
     "subject": "JAVA LAB",
@@ -224,5 +235,5 @@ export const sourceResources = [
 
 export const sourceSummary = {
   "subjectCount": 10,
-  "fileCount": 16
+  "fileCount": 17
 }
