@@ -10,6 +10,7 @@
 
   const subjects = data.subjects;
   const resources = data.resources;
+  const subjectGuides = data.subjectGuides || {};
   const summary = data.summary;
   const populatedFolderCount = subjects.filter(function (subject) {
     return subject.fileCount > 0;
@@ -362,6 +363,8 @@
     const selectedFolder = subjects.find(function (subject) {
       return subject.name === state.selectedSubject;
     });
+    const selectedGuide = state.selectedSubject ? (subjectGuides[state.selectedSubject] || {}) : {};
+    const faculty = selectedGuide.faculty || '';
     const title = state.selectedSubject || 'All source files';
     const subtitle = state.selectedSubject
       ? (selectedFolder ? selectedFolder.fileCount : 0) + ' PDF files found in Sources/' + state.selectedSubject + '.'
@@ -369,6 +372,9 @@
     const filters = ['All', 'PDF'].map(function (filter) {
       return '<button type="button" class="' + (state.filter === filter ? 'active' : '') + '" data-action="set-filter" data-filter="' + filter + '">' + filter + '</button>';
     }).join('');
+    const facultyMarkup = faculty
+      ? '<div class="subject-faculty"><span class="subject-faculty-label">Faculty</span><strong>' + escapeHtml(faculty) + '</strong></div>'
+      : '';
 
     return '<main class="subject-page container">' +
       '<section class="subject-hero source-subject-hero">' +
@@ -376,8 +382,9 @@
           '<span class="breadcrumb">' + icon('folder-open', 15) + ' Sources ' + icon('chevron-right', 14) + ' ' + escapeHtml(state.selectedSubject || 'All folders') + '</span>' +
           '<h1>' + escapeHtml(title) + '</h1><p>' + escapeHtml(subtitle) + '</p>' +
           '<div class="subject-summary"><span>' + icon('file-down', 15) + ' ' + (state.selectedSubject ? (selectedFolder ? selectedFolder.fileCount : 0) : summary.fileCount) + ' PDFs</span><span>' + icon('folder-open', 15) + ' ' + escapeHtml(state.selectedSubject || summary.subjectCount + ' folders') + '</span></div>' +
+          facultyMarkup +
         '</div>' +
-        '<button type="button" class="button button-primary" data-action="clear-filters">' + icon('filter', 18) + ' Clear filters</button></div>' +
+      '</div>' +
       '</section>' +
       '<section class="resource-panel">' +
         '<div class="filter-tabs" aria-label="Resource categories">' + filters + '</div>' +
@@ -396,7 +403,7 @@
   function resourceResults() {
     const filtered = filteredResources();
     const rows = filtered.map(resourceRow).join('');
-    const empty = '<div class="empty-state">' + icon('search', 26) + '<strong>No resources found</strong><p>Try another search or category.</p><button type="button" class="button button-secondary" data-action="clear-filters">Clear filters</button></div>';
+    const empty = '<div class="empty-state">' + icon('search', 26) + '<strong>No resources found</strong><p>Try another search or category.</p></div>';
     return '<div class="resource-list-head"><span>' + filtered.length + ' ' + (filtered.length === 1 ? 'file' : 'files') + ' found</span><span>Actual files from Sources</span></div>' +
       '<div class="resource-list">' + (rows || empty) + '</div>';
   }

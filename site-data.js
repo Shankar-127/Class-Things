@@ -7,14 +7,14 @@
 
   const subjects = [
     { name: 'CM LAB', fileCount: 0 },
-    { name: 'DAA', fileCount: 2 },
-    { name: 'DBMS', fileCount: 1 },
+    { name: 'DAA', fileCount: 4 },
+    { name: 'DBMS', fileCount: 3 },
     { name: 'DBMS LAB', fileCount: 0 },
     { name: 'DEV LAB', fileCount: 0 },
     { name: 'I & E', fileCount: 2 },
-    { name: 'JAVA', fileCount: 1 },
-    { name: 'JAVA LAB', fileCount: 4 },
-    { name: 'SDE', fileCount: 2 },
+    { name: 'JAVA', fileCount: 6 },
+    { name: 'JAVA LAB', fileCount: 6 },
+    { name: 'SDE', fileCount: 3 },
     { name: 'SDT', fileCount: 5 }
   ];
 
@@ -33,6 +33,36 @@
       modifiedAt: 'Aug 24, 2026',
       modifiedMs: 1787515431681,
       url: './Sources/DBMS/DBMS_Notes-1.pdf'
+    },
+    {
+      id: 'DBMS/DBMS_Unit-1.pdf',
+      subject: 'DBMS',
+      filename: 'DBMS_Unit-1.pdf',
+      title: 'DBMS Unit 1',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 1',
+      summary: 'Unit 1 overview of database systems and data models.',
+      topics: ['database fundamentals', 'data models', 'SQL basics'],
+      size: '2.1 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515400000,
+      url: './Sources/DBMS/DBMS_Unit-1.pdf'
+    },
+    {
+      id: 'DBMS/UNIT-1 notes.pdf',
+      subject: 'DBMS',
+      filename: 'UNIT-1 notes.pdf',
+      title: 'Unit 1 Notes',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 1',
+      summary: 'Additional DBMS unit notes covering core concepts and terminology.',
+      topics: ['database concepts', 'schemas', 'queries'],
+      size: '1.6 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515350000,
+      url: './Sources/DBMS/UNIT-1%20notes.pdf'
     },
     {
       id: 'JAVA LAB/JLP5.pdf',
@@ -95,6 +125,36 @@
       url: './Sources/JAVA%20LAB/JLP3.pdf'
     },
     {
+      id: 'JAVA LAB/JLP6.pdf',
+      subject: 'JAVA LAB',
+      filename: 'JLP6.pdf',
+      title: 'Java Lab Program 6',
+      type: 'PDF',
+      category: 'Lab program',
+      unit: 'Lab 6',
+      summary: 'Advanced Java programming practice using arrays, loops and methods.',
+      topics: ['methods', 'control flow', 'coding practice'],
+      size: '182 KB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515300000,
+      url: './Sources/JAVA%20LAB/JLP6.pdf'
+    },
+    {
+      id: 'JAVA LAB/Java interview & 1 mark questions and answers.pdf',
+      subject: 'JAVA LAB',
+      filename: 'Java interview & 1 mark questions and answers.pdf',
+      title: 'Java Interview & 1-Mark Questions and Answers',
+      type: 'PDF',
+      category: 'Question bank',
+      unit: 'Interview prep',
+      summary: 'Quick revision cards with interview and one-mark Java questions.',
+      topics: ['interview prep', '1-mark questions', 'core Java'],
+      size: '640 KB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515250000,
+      url: './Sources/JAVA%20LAB/Java%20interview%20%26%201%20mark%20questions%20and%20answers.pdf'
+    },
+    {
       id: 'I & E/Unit--2.pdf',
       subject: 'I & E',
       filename: 'Unit--2.pdf',
@@ -140,6 +200,21 @@
       url: './Sources/DAA/DAA%20II-Unit.pdf'
     },
     {
+      id: 'DAA/DAA_III-Unit.pdf',
+      subject: 'DAA',
+      filename: 'DAA_III-Unit.pdf',
+      title: 'DAA — Unit III',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 3',
+      summary: 'Advanced algorithm design and greedy graph techniques.',
+      topics: ['greedy algorithms', 'dynamic programming', 'graph traversal'],
+      size: '9.40 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515200000,
+      url: './Sources/DAA/DAA_III-Unit.pdf'
+    },
+    {
       id: 'DAA/UNIT-2 PART2.pdf',
       subject: 'DAA',
       filename: 'UNIT-2 PART2.pdf',
@@ -153,6 +228,36 @@
       modifiedAt: 'Aug 23, 2026',
       modifiedMs: 1787485090201,
       url: './Sources/DAA/UNIT-2%20PART2.pdf'
+    },
+    {
+      id: 'DAA/UNIT-3 PART 1.pdf',
+      subject: 'DAA',
+      filename: 'UNIT-3 PART 1.pdf',
+      title: 'Unit 3 — Part 1',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 3',
+      summary: 'First part of the unit 3 lecture notes for algorithm study.',
+      topics: ['unit revision', 'algorithm notes'],
+      size: '7.00 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515150000,
+      url: './Sources/DAA/UNIT-3%20PART%201.pdf'
+    },
+    {
+      id: 'SDE/SDE ALL 5 Units.pdf',
+      subject: 'SDE',
+      filename: 'SDE ALL 5 Units.pdf',
+      title: 'SDE All 5 Units',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'All units',
+      summary: 'Combined revision notes for all five software design engineering units.',
+      topics: ['unit-wise revision', 'design concepts'],
+      size: '14.8 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787515000000,
+      url: './Sources/SDE/SDE%20ALL%205%20Units.pdf'
     },
     {
       id: 'SDE/SDE-UNIT-2.pdf',
@@ -273,6 +378,81 @@
       modifiedAt: 'Aug 23, 2026',
       modifiedMs: 1787483462237,
       url: './Sources/JAVA/JAVA_Notes-1.pdf'
+    },
+    {
+      id: 'JAVA/Inheritance and polymorphism.pdf',
+      subject: 'JAVA',
+      filename: 'Inheritance and polymorphism.pdf',
+      title: 'Inheritance and Polymorphism',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 2',
+      summary: 'Core OOP concepts covering inheritance and method polymorphism.',
+      topics: ['inheritance', 'polymorphism', 'OOP'],
+      size: '1.65 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787514950000,
+      url: './Sources/JAVA/Inheritance%20and%20polymorphism.pdf'
+    },
+    {
+      id: 'JAVA/Java_Interfaces.pdf',
+      subject: 'JAVA',
+      filename: 'Java_Interfaces.pdf',
+      title: 'Java Interfaces',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 2',
+      summary: 'Java interface concepts with implementation and design notes.',
+      topics: ['interfaces', 'abstraction', 'implementation'],
+      size: '1.20 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787514900000,
+      url: './Sources/JAVA/Java_Interfaces.pdf'
+    },
+    {
+      id: 'JAVA/Java-Unit-2.pdf',
+      subject: 'JAVA',
+      filename: 'Java-Unit-2.pdf',
+      title: 'Java Unit 2',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 2',
+      summary: 'Java unit 2 revision notes covering classes and method design.',
+      topics: ['classes', 'methods', 'unit revision'],
+      size: '1.32 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787514850000,
+      url: './Sources/JAVA/Java-Unit-2.pdf'
+    },
+    {
+      id: 'JAVA/Packages updated notes.pdf',
+      subject: 'JAVA',
+      filename: 'Packages updated notes.pdf',
+      title: 'Packages Updated Notes',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 2',
+      summary: 'Updated notes on Java packages and code organization.',
+      topics: ['packages', 'modularity', 'imports'],
+      size: '2.30 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787514800000,
+      url: './Sources/JAVA/Packages%20updated%20notes.pdf'
+    },
+    {
+      id: 'JAVA/Unit 1 notes.pdf',
+      subject: 'JAVA',
+      filename: 'Unit 1 notes.pdf',
+      title: 'Unit 1 Notes',
+      type: 'PDF',
+      category: 'Lecture notes',
+      unit: 'Unit 1',
+      summary: 'Detailed Java unit 1 notes for quick revision.',
+      topics: ['Java basics', 'syntax', 'object-oriented concepts'],
+      size: '1.47 MB',
+      modifiedAt: 'Aug 24, 2026',
+      modifiedMs: 1787514750000,
+      url: './Sources/JAVA/Unit%201%20notes.pdf'
     }
   ];
 
@@ -283,7 +463,8 @@
       focus: 'Practical record & viva prep',
       topics: ['Experiment setup', 'Observation tables', 'Result writing', 'Viva questions'],
       tip: 'Before a lab session, review the aim, procedure, expected output and precautions.',
-      status: 'Add your lab manual or experiment sheets to this folder when they are available.'
+      status: 'Add your lab manual or experiment sheets to this folder when they are available.',
+      faculty: 'Dr.S. PavanKumar'
     },
     DAA: {
       title: 'Design & Analysis of Algorithms',
@@ -291,7 +472,8 @@
       focus: 'Complexity & algorithm design',
       topics: ['Asymptotic analysis', 'Divide and conquer', 'Dynamic programming', 'Graph algorithms'],
       tip: 'For each algorithm, practise the idea, pseudocode, time complexity and one dry run.',
-      status: '2 source PDFs are ready for revision.'
+      status: '4 source PDFs are ready for revision.',
+      faculty: 'Mrs. V.Adilakshmi'
     },
     DBMS: {
       title: 'Database Management Systems',
@@ -299,7 +481,8 @@
       focus: 'Database foundations',
       topics: ['ER modelling', 'SQL queries', 'Normalisation', 'Transactions & recovery'],
       tip: 'Draw schemas by hand and write a small SQL query set for every important topic.',
-      status: 'Add class notes, SQL sheets or question papers to build this subject library.'
+      status: '3 source PDFs are ready for revision.',
+      faculty: 'Mrs. A.Hemalatha'
     },
     'DBMS LAB': {
       title: 'DBMS Lab workbook',
@@ -307,7 +490,8 @@
       focus: 'SQL practice & records',
       topics: ['DDL and DML', 'Joins & subqueries', 'Constraints', 'Stored procedures'],
       tip: 'Keep one clean record of each query along with its result and a one-line explanation.',
-      status: 'Add lab programs or record PDFs to this folder when they are available.'
+      status: 'Add lab programs or record PDFs to this folder when they are available.',
+      faculty: 'Mrs. A.Hemalatha'
     },
     'DEV LAB': {
       title: 'Development Lab workbook',
@@ -315,7 +499,8 @@
       focus: 'Build, test & submit',
       topics: ['Project setup', 'Core features', 'Testing checklist', 'Demo & submission'],
       tip: 'After every lab, save a short README with setup steps, screenshots and what you learned.',
-      status: 'Add exercise sheets, code handouts or project briefs to this folder when available.'
+      status: 'Add exercise sheets, code handouts or project briefs to this folder when available.',
+      faculty: 'Mrs. V.Adilakshmi'
     },
     'I & E': {
       title: 'Innovation & Entrepreneurship',
@@ -323,7 +508,8 @@
       focus: 'Ideas to business models',
       topics: ['Idea generation', 'Business models', 'Market validation', 'Startup planning'],
       tip: 'Use one-page examples to connect every framework with a familiar product or startup.',
-      status: '2 source PDFs are ready for revision.'
+      status: '2 source PDFs are ready for revision.',
+      faculty: 'Dr. Nayeema'
     },
     JAVA: {
       title: 'Core Java',
@@ -331,7 +517,8 @@
       focus: 'Object-oriented Java',
       topics: ['Classes & objects', 'Inheritance & interfaces', 'Exceptions', 'Collections & I/O'],
       tip: 'Read a concept, then write a tiny program from memory before checking the notes.',
-      status: '1 source PDF is ready for revision.'
+      status: '6 source PDFs are ready for revision.',
+      faculty: 'Mr.P.Kumar'
     },
     'JAVA LAB': {
       title: 'Java Lab programs',
@@ -339,7 +526,8 @@
       focus: 'Programs, output & viva',
       topics: ['OOP programs', 'Interfaces & packages', 'Exception handling', 'File and collection tasks'],
       tip: 'For every program, know the input, output, key classes and the reason behind the approach.',
-      status: '4 source PDFs are ready for revision.'
+      status: '6 source PDFs are ready for revision.',
+      faculty: 'Mr.P.Kumar'
     },
     SDE: {
       title: 'SDE revision guide',
@@ -347,7 +535,8 @@
       focus: 'Units, concepts & practice',
       topics: ['Unit-wise concepts', 'Worked answers', 'Important definitions', 'Question bank practice'],
       tip: 'Attempt a question first, then use the solution to improve the structure of your answer.',
-      status: '2 source PDFs are ready for revision.'
+      status: '3 source PDFs are ready for revision.',
+      faculty: 'Dr. G.Jagan Naik'
     },
     SDT: {
       title: 'Statistics & Decision Theory',
@@ -355,11 +544,12 @@
       focus: 'Inference & decision making',
       topics: ['Estimation theory', 'Confidence intervals', 'Hypothesis testing', 't-Test & F-Test'],
       tip: 'Write the assumptions, test statistic, critical region and conclusion for every problem.',
-      status: '5 source PDFs are ready for revision.'
+      status: '5 source PDFs are ready for revision.',
+      faculty: 'Dr.S. PavanKumar'
     }
   };
 
-  const summary = { subjectCount: 10, fileCount: 17 };
+  const summary = { subjectCount: 10, fileCount: 29 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };
 }());
