@@ -107,10 +107,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .hero-copy h1 span, .creator-intro h1 span { color: var(--blue); }
 .hero-copy > p { max-width: 570px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
-.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 37px; }
-.stat-card { min-width: 0; display: flex; align-items: center; gap: 8px; padding: 11px 9px; border: 1px solid var(--border); border-radius: 12px; background: color-mix(in srgb, var(--surface) 88%, transparent); box-shadow: 0 6px 13px rgba(15, 23, 42, .025); }
-.stat-icon { width: 32px; height: 32px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 9px; }
-.stat-card strong, .stat-card span { display: block; }.stat-card strong { font-size: 14px; line-height: 1.05; }.stat-card div > span { margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 650; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 37px; }
+.stat-card { min-width: 0; display: flex; align-items: center; gap: 10px; padding: 12px 11px; border: 1px solid var(--border); border-radius: 12px; background: color-mix(in srgb, var(--surface) 88%, transparent); box-shadow: 0 6px 13px rgba(15, 23, 42, .025); }
+.stat-icon { width: 42px; height: 32px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 9px; }
+.stat-card strong, .stat-card span { display: block; }
+.stat-card strong { font-size: 14px; line-height: 1.05; }
+.stat-card div > span { margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 650; }
 .hero-visual { min-height: 410px; position: relative; overflow: hidden; border: 1px solid #dbeafe; border-radius: 30px; background: linear-gradient(145deg, #eff6ff, #f8fbff 46%, #f0f9ff); isolation: isolate; }
 .dark .hero-visual { border-color: #234b82; background: linear-gradient(145deg, #112b51, #101e34 50%, #122840); }
 .visual-glow { position: absolute; border-radius: 50%; filter: blur(1px); }.glow-one { top: -96px; right: -59px; width: 280px; height: 280px; background: rgba(191, 219, 254, .66); }.glow-two { bottom: -95px; left: -100px; width: 300px; height: 300px; background: rgba(224, 231, 255, .72); }.dark .glow-one { background: rgba(37, 99, 235, .18); }.dark .glow-two { background: rgba(139, 92, 246, .16); }
