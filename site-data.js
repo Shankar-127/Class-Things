@@ -50,10 +50,10 @@
 
   const resources = [
   {
-    "id": "CM LAB/II B. Tech I Sem Syllabus.pdf",
+    "id": "CM LAB/Syllabus_II_I.pdf",
     "subject": "CM LAB",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -66,13 +66,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/CM%20LAB/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/CM%20LAB/Syllabus_II_I.pdf"
   },
   {
-    "id": "DAA/II B. Tech I Sem Syllabus.pdf",
+    "id": "DAA/Syllabus_II_I.pdf",
     "subject": "DAA",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -85,13 +85,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/DAA/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/DAA/Syllabus_II_I.pdf"
   },
   {
-    "id": "DBMS/II B. Tech I Sem Syllabus.pdf",
+    "id": "DBMS/Syllabus_II_I.pdf",
     "subject": "DBMS",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -104,13 +104,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/DBMS/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/DBMS/Syllabus_II_I.pdf"
   },
   {
-    "id": "DBMS LAB/II B. Tech I Sem Syllabus.pdf",
+    "id": "DBMS LAB/Syllabus_II_I.pdf",
     "subject": "DBMS LAB",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -123,13 +123,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/DBMS%20LAB/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/DBMS%20LAB/Syllabus_II_I.pdf"
   },
   {
-    "id": "DEV LAB/II B. Tech I Sem Syllabus.pdf",
+    "id": "DEV LAB/Syllabus_II_I.pdf",
     "subject": "DEV LAB",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -142,13 +142,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/DEV%20LAB/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/DEV%20LAB/Syllabus_II_I.pdf"
   },
   {
-    "id": "I & E/II B. Tech I Sem Syllabus.pdf",
+    "id": "I & E/Syllabus_II_I.pdf",
     "subject": "I & E",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -161,13 +161,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/I%20%26%20E/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/I%20%26%20E/Syllabus_II_I.pdf"
   },
   {
-    "id": "JAVA/II B. Tech I Sem Syllabus.pdf",
+    "id": "JAVA/Syllabus_II_I.pdf",
     "subject": "JAVA",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -180,13 +180,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/JAVA/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/JAVA/Syllabus_II_I.pdf"
   },
   {
-    "id": "JAVA LAB/II B. Tech I Sem Syllabus.pdf",
+    "id": "JAVA LAB/Syllabus_II_I.pdf",
     "subject": "JAVA LAB",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -199,13 +199,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/JAVA%20LAB/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/JAVA%20LAB/Syllabus_II_I.pdf"
   },
   {
-    "id": "SDE/II B. Tech I Sem Syllabus.pdf",
+    "id": "SDE/Syllabus_II_I.pdf",
     "subject": "SDE",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -218,13 +218,13 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/SDE/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/SDE/Syllabus_II_I.pdf"
   },
   {
-    "id": "SDT/II B. Tech I Sem Syllabus.pdf",
+    "id": "SDT/Syllabus_II_I.pdf",
     "subject": "SDT",
-    "filename": "II B. Tech I Sem Syllabus.pdf",
-    "title": "II B. Tech I Sem Syllabus",
+    "filename": "Syllabus_II_I.pdf",
+    "title": "Syllabus_II_I",
     "type": "PDF",
     "category": "Syllabus",
     "unit": "Overview",
@@ -237,7 +237,7 @@
     "size": "291 KB",
     "modifiedAt": "Aug 28, 2026",
     "modifiedMs": 1787886204399,
-    "url": "./Sources/SDT/II%20B.%20Tech%20I%20Sem%20Syllabus.pdf"
+    "url": "./Sources/SDT/Syllabus_II_I.pdf"
   },
   {
     "id": "SDE/SDE syllabus.pdf",
