@@ -36,7 +36,7 @@
   },
   {
     "name": "JAVA LAB",
-    "fileCount": 7
+    "fileCount": 10
   },
   {
     "name": "SDE",
@@ -44,7 +44,7 @@
   },
   {
     "name": "SDT",
-    "fileCount": 7
+    "fileCount": 9
   }
 ];
 
@@ -696,6 +696,63 @@
     "url": "./Sources/JAVA%20LAB/JLP6.pdf"
   },
   {
+    "id": "JAVA LAB/JLP7.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP7.pdf",
+    "title": "JLP7",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Revision",
+    "summary": "JAVA LAB resource for revision and practical preparation.",
+    "topics": [
+      "JAVA LAB",
+      "revision",
+      "notes"
+    ],
+    "size": "94 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "./Sources/JAVA%20LAB/JLP7.pdf"
+  },
+  {
+    "id": "JAVA LAB/JLP8.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP8.pdf",
+    "title": "JLP8",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Revision",
+    "summary": "JAVA LAB resource for revision and practical preparation.",
+    "topics": [
+      "JAVA LAB",
+      "revision",
+      "notes"
+    ],
+    "size": "82 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "./Sources/JAVA%20LAB/JLP8.pdf"
+  },
+  {
+    "id": "JAVA LAB/JLP9.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP9.pdf",
+    "title": "JLP9",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Revision",
+    "summary": "JAVA LAB resource for revision and practical preparation.",
+    "topics": [
+      "JAVA LAB",
+      "revision",
+      "notes"
+    ],
+    "size": "109 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "./Sources/JAVA%20LAB/JLP9.pdf"
+  },
+  {
     "id": "JAVA/Java_Interfaces.pdf",
     "subject": "JAVA",
     "filename": "Java_Interfaces.pdf",
@@ -979,6 +1036,44 @@
     "modifiedAt": "Aug 23, 2026",
     "modifiedMs": 1787484667781,
     "url": "./Sources/SDT/Unit-1__t-test%20%26%20F-test%20for%20small%20samples.pdf"
+  },
+  {
+    "id": "SDT/Unit-III Stochastic process -II.pdf",
+    "subject": "SDT",
+    "filename": "Unit-III Stochastic process -II.pdf",
+    "title": "Unit-III Stochastic process -II",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "SDT unit notes covering the main concepts and examples.",
+    "topics": [
+      "SDT",
+      "revision",
+      "notes"
+    ],
+    "size": "1.04 MB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "./Sources/SDT/Unit-III%20Stochastic%20process%20-II.pdf"
+  },
+  {
+    "id": "SDT/Unit-IV (Decision theory-I).pdf",
+    "subject": "SDT",
+    "filename": "Unit-IV (Decision theory-I).pdf",
+    "title": "Unit-IV (Decision theory-I)",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "SDT unit notes covering the main concepts and examples.",
+    "topics": [
+      "SDT",
+      "revision",
+      "notes"
+    ],
+    "size": "525 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "./Sources/SDT/Unit-IV%20%28Decision%20theory-I%29.pdf"
   },
   {
     "id": "SDT/Unit-1__Test of Hypothesis.pdf",

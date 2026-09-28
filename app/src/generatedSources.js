@@ -31,7 +31,7 @@ export const sourceSubjects = [
   },
   {
     "name": "JAVA LAB",
-    "fileCount": 7
+    "fileCount": 10
   },
   {
     "name": "SDE",
@@ -39,7 +39,7 @@ export const sourceSubjects = [
   },
   {
     "name": "SDT",
-    "fileCount": 7
+    "fileCount": 9
   }
 ]
 
@@ -65,6 +65,28 @@ export const sourceResources = [
     "modifiedAt": "Sep 2, 2026",
     "modifiedMs": 1788370650700,
     "url": "/sources/SDT/Unit-1__t-test%20%26%20F-test%20for%20small%20samples.pdf"
+  },
+  {
+    "id": "SDT/Unit-III Stochastic process -II.pdf",
+    "subject": "SDT",
+    "filename": "Unit-III Stochastic process -II.pdf",
+    "title": "Unit-III Stochastic process -II",
+    "type": "PDF",
+    "size": "1.04 MB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "/sources/SDT/Unit-III%20Stochastic%20process%20-II.pdf"
+  },
+  {
+    "id": "SDT/Unit-IV (Decision theory-I).pdf",
+    "subject": "SDT",
+    "filename": "Unit-IV (Decision theory-I).pdf",
+    "title": "Unit-IV (Decision theory-I)",
+    "type": "PDF",
+    "size": "525 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "/sources/SDT/Unit-IV%20%28Decision%20theory-I%29.pdf"
   },
   {
     "id": "SDT/Unit-1__Proportions & Confidence interval.pdf",
@@ -285,6 +307,39 @@ export const sourceResources = [
     "modifiedAt": "Sep 2, 2026",
     "modifiedMs": 1788370650385,
     "url": "/sources/JAVA%20LAB/JLP6.pdf"
+  },
+  {
+    "id": "JAVA LAB/JLP7.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP7.pdf",
+    "title": "JLP7",
+    "type": "PDF",
+    "size": "94 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "/sources/JAVA%20LAB/JLP7.pdf"
+  },
+  {
+    "id": "JAVA LAB/JLP8.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP8.pdf",
+    "title": "JLP8",
+    "type": "PDF",
+    "size": "82 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "/sources/JAVA%20LAB/JLP8.pdf"
+  },
+  {
+    "id": "JAVA LAB/JLP9.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP9.pdf",
+    "title": "JLP9",
+    "type": "PDF",
+    "size": "109 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "/sources/JAVA%20LAB/JLP9.pdf"
   },
   {
     "id": "JAVA LAB/JLP4.pdf",
