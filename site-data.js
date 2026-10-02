@@ -36,7 +36,7 @@
   },
   {
     "name": "JAVA LAB",
-    "fileCount": 10
+    "fileCount": 11
   },
   {
     "name": "SDE",
@@ -751,6 +751,25 @@
     "modifiedAt": "Sep 28, 2026",
     "modifiedMs": 1788370650000,
     "url": "./Sources/JAVA%20LAB/JLP9.pdf"
+  },
+  {
+    "id": "JAVA LAB/JLP11.pdf",
+    "subject": "JAVA LAB",
+    "filename": "JLP11.pdf",
+    "title": "JLP11",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Revision",
+    "summary": "JAVA LAB resource for revision and practical preparation.",
+    "topics": [
+      "JAVA LAB",
+      "revision",
+      "notes"
+    ],
+    "size": "120 KB",
+    "modifiedAt": "Sep 28, 2026",
+    "modifiedMs": 1788370650000,
+    "url": "./Sources/JAVA%20LAB/JLP11.pdf"
   },
   {
     "id": "JAVA/Java_Interfaces.pdf",
