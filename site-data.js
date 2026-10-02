@@ -1335,7 +1335,7 @@
 
   const summary = {
   "subjectCount": 10,
-  "fileCount": 54
+  "fileCount": 55
 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };
