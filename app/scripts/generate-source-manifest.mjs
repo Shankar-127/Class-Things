@@ -47,7 +47,7 @@ for (const folder of folders) {
       size: formatSize(fileStats.size),
       modifiedAt: formatDate(fileStats.mtime),
       modifiedMs: Math.round(fileStats.mtimeMs),
-      url: `/sources/${encodeURIComponent(folder.name)}/${encodeURIComponent(file.name)}`,
+      url: `./sources/${encodeURIComponent(folder.name)}/${encodeURIComponent(file.name)}`,
     })
   }
 }

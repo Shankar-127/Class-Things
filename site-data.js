@@ -39,6 +39,10 @@
     "fileCount": 11
   },
   {
+    "name": "LABS",
+    "fileCount": 3
+  },
+  {
     "name": "SDE",
     "fileCount": 6
   },
@@ -49,6 +53,63 @@
 ];
 
   const resources = [
+  {
+    "id": "LABS/JAVALAB.pdf",
+    "subject": "LABS",
+    "filename": "JAVALAB.pdf",
+    "title": "Java Lab Manual",
+    "type": "PDF",
+    "category": "Lab manual",
+    "unit": "Labs",
+    "summary": "Java laboratory manual with practical exercises.",
+    "topics": [
+      "Java",
+      "lab manual",
+      "practical"
+    ],
+    "size": "294 KB",
+    "modifiedAt": "Oct 25, 2026",
+    "modifiedMs": 1792892145075,
+    "url": "./Sources/LABS/JAVALAB.pdf"
+  },
+  {
+    "id": "LABS/DEVLAB.pdf",
+    "subject": "LABS",
+    "filename": "DEVLAB.pdf",
+    "title": "Development Lab Manual",
+    "type": "PDF",
+    "category": "Lab manual",
+    "unit": "Labs",
+    "summary": "Development laboratory manual with practical exercises.",
+    "topics": [
+      "development",
+      "lab manual",
+      "practical"
+    ],
+    "size": "535 KB",
+    "modifiedAt": "Oct 25, 2026",
+    "modifiedMs": 1792892143759,
+    "url": "./Sources/LABS/DEVLAB.pdf"
+  },
+  {
+    "id": "LABS/DBMSLAB.pdf",
+    "subject": "LABS",
+    "filename": "DBMSLAB.pdf",
+    "title": "DBMS Lab Manual",
+    "type": "PDF",
+    "category": "Lab manual",
+    "unit": "Labs",
+    "summary": "DBMS laboratory manual with practical exercises.",
+    "topics": [
+      "DBMS",
+      "lab manual",
+      "practical"
+    ],
+    "size": "462 KB",
+    "modifiedAt": "Oct 25, 2026",
+    "modifiedMs": 1792891942366,
+    "url": "./Sources/LABS/DBMSLAB.pdf"
+  },
   {
     "id": "CM LAB/Syllabus_II_I.pdf",
     "subject": "CM LAB",
@@ -1303,6 +1364,18 @@
     "status": "7 source PDFs are ready for revision.",
     "faculty": "Mr. P.Kumar"
   },
+  "LABS": {
+    "title": "Laboratory manuals",
+    "summary": "Browse the DBMS, development and Java lab manuals in one place.",
+    "focus": "Practical exercises",
+    "topics": [
+      "DBMS lab",
+      "Development lab",
+      "Java lab"
+    ],
+    "tip": "Review the objective and expected output before attempting each exercise.",
+    "status": "3 lab manuals are ready to use."
+  },
   "SDE": {
     "title": "SDE revision guide",
     "summary": "Use the unit notes and solved questions to create a focused, exam-ready revision plan.",
@@ -1334,8 +1407,8 @@
 };
 
   const summary = {
-  "subjectCount": 10,
-  "fileCount": 55
+  "subjectCount": 11,
+  "fileCount": 63
 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };

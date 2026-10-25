@@ -107,6 +107,7 @@ const sourceVisuals = {
   'I & E': { Icon: Zap, tone: 'amber' },
   JAVA: { Icon: Coffee, tone: 'orange' },
   'JAVA LAB': { Icon: FileCode2, tone: 'violet' },
+  LABS: { Icon: FlaskConical, tone: 'green' },
   SDE: { Icon: BookOpen, tone: 'cyan' },
   SDT: { Icon: FileText, tone: 'blue' },
 }

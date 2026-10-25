@@ -25,6 +25,7 @@
     'I & E': { icon: 'zap', tone: 'amber' },
     JAVA: { icon: 'coffee', tone: 'orange' },
     'JAVA LAB': { icon: 'file-code-2', tone: 'violet' },
+    LABS: { icon: 'flask-conical', tone: 'green' },
     SDE: { icon: 'book-open', tone: 'cyan' },
     SDT: { icon: 'file-text', tone: 'blue' }
   };
