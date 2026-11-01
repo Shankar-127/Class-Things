@@ -173,7 +173,15 @@
     state.mobileOpen = false;
     state.activeSection = 'introduction';
 
-    if (route === 'sources') {
+    if (route === 'recents') {
+      state.page = 'home';
+      state.activeNav = 'Recents';
+      state.selectedSubject = null;
+      state.filter = 'All';
+      state.subjectSearch = '';
+      state.sort = 'Newest';
+      state.previewOrigin = 'sources';
+    } else if (route === 'sources') {
       state.page = 'subject';
       state.activeNav = 'Sources';
       state.selectedSubject = null;
@@ -223,6 +231,13 @@
 
     if (scrollToTop !== false) {
       window.setTimeout(function () {
+        if (route === 'recents') {
+          const recentFiles = document.querySelector('.recent-section');
+          if (recentFiles) {
+            recentFiles.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+          }
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 0);
     }
@@ -231,9 +246,7 @@
   function header() {
     const navItems = [
       ['Home', '#/home'],
-      ['Sources', '#/sources'],
-      ['Subjects', '#/subjects'],
-      ['PDFs', '#/pdfs'],
+      ['Recents', '#/recents'],
       ['Creator', '#/creator']
     ];
     const navMarkup = navItems.map(function (item) {
@@ -314,7 +327,16 @@
         icon('arrow-right', 17, 'subject-arrow') +
       '</button>';
     }).join('');
-    const recentCards = resources.slice(0, 4).map(function (resource) {
+    const recentSdtIds = new Set([
+      'SDT/Decision theory - Unit-IV.pdf',
+      'SDT/Proportions & Confidence interval.pdf',
+      'SDT/Test of Hypothesis.pdf',
+      'SDT/UNIT- V Statistical Learning.pdf',
+      'SDT/t-test & F-test for small samples.pdf'
+    ]);
+    const recentCards = resources.filter(function (resource) {
+      return recentSdtIds.has(resource.id);
+    }).map(function (resource) {
       const visual = getVisual(resource.subject);
       return '<article class="recent-card">' +
         '<div class="recent-top"><span class="file-icon tone-' + visual.tone + '">' + icon(visual.icon, 22) + '</span>' + typeBadge(resource.type) + '</div>' +

@@ -43,11 +43,33 @@ export const sourceSubjects = [
   },
   {
     "name": "SDT",
-    "fileCount": 9
+    "fileCount": 11
   }
 ]
 
 export const sourceResources = [
+  {
+    "id": "SDT/UNIT- V Statistical Learning.pdf",
+    "subject": "SDT",
+    "filename": "UNIT- V Statistical Learning.pdf",
+    "title": "UNIT- V Statistical Learning",
+    "type": "PDF",
+    "size": "1.01 MB",
+    "modifiedAt": "Nov 1, 2026",
+    "modifiedMs": 1793510898482,
+    "url": "./sources/SDT/UNIT-%20V%20Statistical%20Learning.pdf"
+  },
+  {
+    "id": "SDT/Decision theory - Unit-IV.pdf",
+    "subject": "SDT",
+    "filename": "Decision theory - Unit-IV.pdf",
+    "title": "Decision theory - Unit-IV",
+    "type": "PDF",
+    "size": "918 KB",
+    "modifiedAt": "Nov 1, 2026",
+    "modifiedMs": 1793510830837,
+    "url": "./sources/SDT/Decision%20theory%20-%20Unit-IV.pdf"
+  },
   {
     "id": "LABS/JAVALAB.pdf",
     "subject": "LABS",
@@ -159,26 +181,37 @@ export const sourceResources = [
     "url": "./sources/SDT/Unit-III%20(Stochastic%20Process-I).pdf"
   },
   {
-    "id": "SDT/Unit-1__t-test & F-test for small samples.pdf",
+    "id": "SDT/t-test & F-test for small samples.pdf",
     "subject": "SDT",
-    "filename": "Unit-1__t-test & F-test for small samples.pdf",
-    "title": "Unit-1__t-test & F-test for small samples",
+    "filename": "t-test & F-test for small samples.pdf",
+    "title": "t-test & F-test for small samples",
     "type": "PDF",
     "size": "12.2 MB",
     "modifiedAt": "Sep 2, 2026",
     "modifiedMs": 1788370650700,
-    "url": "./sources/SDT/Unit-1__t-test%20%26%20F-test%20for%20small%20samples.pdf"
+    "url": "./sources/SDT/t-test%20%26%20F-test%20for%20small%20samples.pdf"
   },
   {
-    "id": "SDT/Unit-1__Proportions & Confidence interval.pdf",
+    "id": "SDT/Proportions & Confidence interval.pdf",
     "subject": "SDT",
-    "filename": "Unit-1__Proportions & Confidence interval.pdf",
-    "title": "Unit-1__Proportions & Confidence interval",
+    "filename": "Proportions & Confidence interval.pdf",
+    "title": "Proportions & Confidence interval",
     "type": "PDF",
     "size": "2.01 MB",
     "modifiedAt": "Sep 2, 2026",
     "modifiedMs": 1788370650606,
-    "url": "./sources/SDT/Unit-1__Proportions%20%26%20Confidence%20interval.pdf"
+    "url": "./sources/SDT/Proportions%20%26%20Confidence%20interval.pdf"
+  },
+  {
+    "id": "SDT/Test of Hypothesis.pdf",
+    "subject": "SDT",
+    "filename": "Test of Hypothesis.pdf",
+    "title": "Test of Hypothesis",
+    "type": "PDF",
+    "size": "1.50 MB",
+    "modifiedAt": "Sep 2, 2026",
+    "modifiedMs": 1788370650606,
+    "url": "./sources/SDT/Test%20of%20Hypothesis.pdf"
   },
   {
     "id": "SDT/Unit-1__STATISTICS AND DECISION THEORY.pdf",
@@ -190,17 +223,6 @@ export const sourceResources = [
     "modifiedAt": "Sep 2, 2026",
     "modifiedMs": 1788370650606,
     "url": "./sources/SDT/Unit-1__STATISTICS%20AND%20DECISION%20THEORY.pdf"
-  },
-  {
-    "id": "SDT/Unit-1__Test of Hypothesis.pdf",
-    "subject": "SDT",
-    "filename": "Unit-1__Test of Hypothesis.pdf",
-    "title": "Unit-1__Test of Hypothesis",
-    "type": "PDF",
-    "size": "1.50 MB",
-    "modifiedAt": "Sep 2, 2026",
-    "modifiedMs": 1788370650606,
-    "url": "./sources/SDT/Unit-1__Test%20of%20Hypothesis.pdf"
   },
   {
     "id": "SDT/Estimation Theory.pdf",
@@ -745,5 +767,5 @@ export const sourceResources = [
 
 export const sourceSummary = {
   "subjectCount": 11,
-  "fileCount": 63
+  "fileCount": 65
 }

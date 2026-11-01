@@ -48,11 +48,49 @@
   },
   {
     "name": "SDT",
-    "fileCount": 9
+    "fileCount": 11
   }
 ];
 
   const resources = [
+  {
+    "id": "SDT/UNIT- V Statistical Learning.pdf",
+    "subject": "SDT",
+    "filename": "UNIT- V Statistical Learning.pdf",
+    "title": "UNIT- V Statistical Learning",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "SDT unit notes covering statistical learning.",
+    "topics": [
+      "SDT",
+      "statistical learning",
+      "revision"
+    ],
+    "size": "1.01 MB",
+    "modifiedAt": "Nov 1, 2026",
+    "modifiedMs": 1793510898482,
+    "url": "./Sources/SDT/UNIT-%20V%20Statistical%20Learning.pdf"
+  },
+  {
+    "id": "SDT/Decision theory - Unit-IV.pdf",
+    "subject": "SDT",
+    "filename": "Decision theory - Unit-IV.pdf",
+    "title": "Decision theory - Unit-IV",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "SDT unit notes covering decision theory.",
+    "topics": [
+      "SDT",
+      "decision theory",
+      "revision"
+    ],
+    "size": "918 KB",
+    "modifiedAt": "Nov 1, 2026",
+    "modifiedMs": 1793510830837,
+    "url": "./Sources/SDT/Decision%20theory%20-%20Unit-IV.pdf"
+  },
   {
     "id": "LABS/JAVALAB.pdf",
     "subject": "LABS",
@@ -1099,10 +1137,10 @@
     "url": "./Sources/SDE/SDE-QB%20SOLUTIONS%20_Dr.G.J%20NAIK.pdf"
   },
   {
-    "id": "SDT/Unit-1__t-test & F-test for small samples.pdf",
+    "id": "SDT/t-test & F-test for small samples.pdf",
     "subject": "SDT",
-    "filename": "Unit-1__t-test & F-test for small samples.pdf",
-    "title": "Unit-1__t-test & F-test for small samples",
+    "filename": "t-test & F-test for small samples.pdf",
+    "title": "t-test & F-test for small samples",
     "type": "PDF",
     "category": "Lecture notes",
     "unit": "Unit notes",
@@ -1113,9 +1151,9 @@
       "notes"
     ],
     "size": "12.2 MB",
-    "modifiedAt": "Aug 23, 2026",
-    "modifiedMs": 1787484667781,
-    "url": "./Sources/SDT/Unit-1__t-test%20%26%20F-test%20for%20small%20samples.pdf"
+    "modifiedAt": "Sep 2, 2026",
+    "modifiedMs": 1788370650700,
+    "url": "./Sources/SDT/t-test%20%26%20F-test%20for%20small%20samples.pdf"
   },
   {
     "id": "SDT/Unit-III Stochastic process -II.pdf",
@@ -1156,10 +1194,10 @@
     "url": "./Sources/SDT/Unit-IV%20%28Decision%20theory-I%29.pdf"
   },
   {
-    "id": "SDT/Unit-1__Test of Hypothesis.pdf",
+    "id": "SDT/Test of Hypothesis.pdf",
     "subject": "SDT",
-    "filename": "Unit-1__Test of Hypothesis.pdf",
-    "title": "Unit-1__Test of Hypothesis",
+    "filename": "Test of Hypothesis.pdf",
+    "title": "Test of Hypothesis",
     "type": "PDF",
     "category": "Lecture notes",
     "unit": "Unit notes",
@@ -1170,15 +1208,15 @@
       "notes"
     ],
     "size": "1.50 MB",
-    "modifiedAt": "Aug 23, 2026",
-    "modifiedMs": 1787484631605,
-    "url": "./Sources/SDT/Unit-1__Test%20of%20Hypothesis.pdf"
+    "modifiedAt": "Sep 2, 2026",
+    "modifiedMs": 1788370650606,
+    "url": "./Sources/SDT/Test%20of%20Hypothesis.pdf"
   },
   {
-    "id": "SDT/Unit-1__Proportions & Confidence interval.pdf",
+    "id": "SDT/Proportions & Confidence interval.pdf",
     "subject": "SDT",
-    "filename": "Unit-1__Proportions & Confidence interval.pdf",
-    "title": "Unit-1__Proportions & Confidence interval",
+    "filename": "Proportions & Confidence interval.pdf",
+    "title": "Proportions & Confidence interval",
     "type": "PDF",
     "category": "Lecture notes",
     "unit": "Unit notes",
@@ -1189,9 +1227,9 @@
       "notes"
     ],
     "size": "2.01 MB",
-    "modifiedAt": "Aug 23, 2026",
-    "modifiedMs": 1787484583235,
-    "url": "./Sources/SDT/Unit-1__Proportions%20%26%20Confidence%20interval.pdf"
+    "modifiedAt": "Sep 2, 2026",
+    "modifiedMs": 1788370650606,
+    "url": "./Sources/SDT/Proportions%20%26%20Confidence%20interval.pdf"
   },
   {
     "id": "SDT/Unit-1__STATISTICS AND DECISION THEORY.pdf",
@@ -1408,7 +1446,7 @@
 
   const summary = {
   "subjectCount": 11,
-  "fileCount": 63
+  "fileCount": 65
 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };

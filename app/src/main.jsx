@@ -23,6 +23,7 @@ import {
   Filter,
   FlaskConical,
   FolderOpen,
+  Gamepad2,
   GraduationCap,
   HardDrive,
   Heart,
@@ -113,7 +114,14 @@ const sourceVisuals = {
 }
 
 const getSourceVisual = (subject) => sourceVisuals[subject] || { Icon: FolderOpen, tone: 'blue' }
-const recentActualResources = actualResources.slice(0, 4)
+const recentSdtFiles = new Set([
+  'SDT/Decision theory - Unit-IV.pdf',
+  'SDT/Proportions & Confidence interval.pdf',
+  'SDT/Test of Hypothesis.pdf',
+  'SDT/UNIT- V Statistical Learning.pdf',
+  'SDT/t-test & F-test for small samples.pdf',
+])
+const recentActualResources = actualResources.filter((resource) => recentSdtFiles.has(resource.id))
 const populatedFolderCount = actualSubjects.filter((subject) => subject.fileCount > 0).length
 
 function App() {
@@ -190,11 +198,15 @@ function App() {
     setSubjectSearch(globalSearch)
   }
 
+  const openRecents = () => {
+    changePage('home', 'Recents')
+    window.setTimeout(() => document.getElementById('recent-files')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0)
+  }
+
   const navItems = [
     { label: 'Home', onClick: () => changePage('home', 'Home') },
-    { label: 'Sources', onClick: () => openSubject(null, 'All', 'Sources') },
-    { label: 'Subjects', onClick: () => openSubject(null, 'All', 'Subjects') },
-    { label: 'PDFs', onClick: () => openSubject(null, 'PDF', 'PDFs') },
+    { label: 'Recents', onClick: openRecents },
+    { label: 'Games', onClick: () => changePage('games', 'Games') },
     { label: 'Creator', onClick: () => changePage('creator', 'Creator') },
   ]
 
@@ -220,6 +232,7 @@ function App() {
       />
 
       {page === 'home' && <HomePage openSubject={openSubject} openPreview={openPreview} />}
+      {page === 'games' && <GamesPage />}
       {page === 'subject' && (
         <SubjectPage
           selectedSubject={selectedSubject}
@@ -331,7 +344,7 @@ function HomePage({ openSubject, openPreview }) {
         </div>
       </section>
 
-      <section className="content-section container recent-section">
+      <section className="content-section container recent-section" id="recent-files">
         <SectionHeading eyebrow="From the Sources folder" title="Recently added files" action="View all files" onAction={() => openSubject(null, 'All', 'Sources')} />
         <div className="recent-grid">
           {recentActualResources.map((resource) => {
