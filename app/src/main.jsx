@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
   ArrowRight,
@@ -15,6 +15,7 @@ import {
   Code2,
   Coffee,
   Copy,
+  Dices,
   Download,
   Eye,
   FileCode2,
@@ -136,6 +137,7 @@ function App() {
   const [sort, setSort] = useState('Newest')
   const [selectedSubject, setSelectedSubject] = useState(null)
   const [selectedResource, setSelectedResource] = useState(() => actualResources[0] || null)
+  const [selectedGame, setSelectedGame] = useState(null)
   const [toast, setToast] = useState('')
   const toastTimer = useRef(null)
 
@@ -203,10 +205,20 @@ function App() {
     window.setTimeout(() => document.getElementById('recent-files')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0)
   }
 
+  const openGame = (game) => {
+    setSelectedGame(game)
+    changePage('game', 'Games')
+  }
+
+  const openGames = () => {
+    setSelectedGame(null)
+    changePage('games', 'Games')
+  }
+
   const navItems = [
     { label: 'Home', onClick: () => changePage('home', 'Home') },
     { label: 'Recents', onClick: openRecents },
-    { label: 'Games', onClick: () => changePage('games', 'Games') },
+    { label: 'Games', onClick: openGames },
     { label: 'Creator', onClick: () => changePage('creator', 'Creator') },
   ]
 
@@ -232,7 +244,8 @@ function App() {
       />
 
       {page === 'home' && <HomePage openSubject={openSubject} openPreview={openPreview} />}
-      {page === 'games' && <GamesPage />}
+      {page === 'games' && <GamesPage onOpenGame={openGame} />}
+      {page === 'game' && <GamesPage gameKey={selectedGame} onBack={openGames} />}
       {page === 'subject' && (
         <SubjectPage
           selectedSubject={selectedSubject}
@@ -482,6 +495,330 @@ function PreviewPage({ back, downloadResource, shareResource, notify }) {
         </article>
         <aside className="details-stack" id="details"><div className="details-card"><span className="aside-title">File details</span><dl><Detail icon={<FileText size={16} />} label="Type" value="Notes" /><Detail icon={<BookOpen size={16} />} label="Subject" value={resource?.subject || 'Unknown'} /><Detail icon={<Users size={16} />} label="Uploaded by" value="Mr. Sharma" /><Detail icon={<CalendarDays size={16} />} label="Uploaded on" value="20 Aug 2026" /><Detail icon={<HardDrive size={16} />} label="Size" value="2.4 MB" /><Detail icon={<Download size={16} />} label="Downloads" value="128" /></dl></div><div className="related-card"><div className="related-head"><span className="aside-title">Related files</span><button>See all</button></div><Related name="Line Integrals — Quick Notes" type="Notes" /><Related name="Vector Calculus Formula Sheet" type="PDF" /><Related name="Gradient & Directional Derivative" type="Notes" /></div></aside>
       </div>
+    </main>
+  )
+}
+
+function makeMathQuestion() {
+  const left = Math.floor(Math.random() * 12) + 1
+  const right = Math.floor(Math.random() * 12) + 1
+  const operator = ['+', '-', '×'][Math.floor(Math.random() * 3)]
+  const first = operator === '-' && right > left ? right : left
+  const second = operator === '-' && right > left ? left : right
+  const answer = operator === '+' ? first + second : operator === '-' ? first - second : first * second
+  return { text: `${first} ${operator} ${second}`, answer }
+}
+
+function makeMemoryCards() {
+  const symbols = ['🍎', '⭐', '🎈', '🌙']
+  return [...symbols, ...symbols]
+    .map((symbol, index) => ({ id: index, symbol }))
+    .sort(() => Math.random() - 0.5)
+}
+
+const scrambleWords = ['planet', 'garden', 'school', 'pencil', 'orange', 'rocket', 'window', 'bridge']
+const hangmanWords = ['PLANET', 'GARDEN', 'PUZZLE', 'ROCKET', 'ORANGE', 'STREAM']
+
+function makeScrambleRound() {
+  const word = scrambleWords[Math.floor(Math.random() * scrambleWords.length)]
+  let scrambled = word.split('').sort(() => Math.random() - 0.5).join('')
+  if (scrambled === word) scrambled = `${word.slice(1)}${word[0]}`
+  return { word, scrambled }
+}
+
+function makeHangmanWord() {
+  return hangmanWords[Math.floor(Math.random() * hangmanWords.length)]
+}
+
+function getTicTacToeWinner(board) {
+  const lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+  for (const [first, second, third] of lines) {
+    if (board[first] && board[first] === board[second] && board[first] === board[third]) return board[first]
+  }
+  return null
+}
+
+function GamesPage({ gameKey = null, onOpenGame, onBack }) {
+  const [secret, setSecret] = useState(() => Math.floor(Math.random() * 100) + 1)
+  const [guess, setGuess] = useState('')
+  const [guessCount, setGuessCount] = useState(0)
+  const [guessMessage, setGuessMessage] = useState('Pick a number from 1 to 100 to get started.')
+  const [guessWon, setGuessWon] = useState(false)
+  const [rpsScore, setRpsScore] = useState({ wins: 0, losses: 0, draws: 0 })
+  const [rpsMessage, setRpsMessage] = useState('Choose rock, paper or scissors.')
+  const [mathQuestion, setMathQuestion] = useState(makeMathQuestion)
+  const [mathAnswer, setMathAnswer] = useState('')
+  const [mathScore, setMathScore] = useState(0)
+  const [mathMessage, setMathMessage] = useState('Solve the problem, then check your answer.')
+  const [ticBoard, setTicBoard] = useState(Array(9).fill(null))
+  const [ticTurn, setTicTurn] = useState('X')
+  const [memoryCards, setMemoryCards] = useState(makeMemoryCards)
+  const [memorySelected, setMemorySelected] = useState([])
+  const [memoryMatched, setMemoryMatched] = useState([])
+  const [memoryMoves, setMemoryMoves] = useState(0)
+  const memoryLocked = useRef(false)
+  const [coinResult, setCoinResult] = useState('')
+  const [diceResult, setDiceResult] = useState(null)
+  const [scrambleRound, setScrambleRound] = useState(makeScrambleRound)
+  const [scrambleAnswer, setScrambleAnswer] = useState('')
+  const [scrambleMessage, setScrambleMessage] = useState('Unscramble the letters to find the word.')
+  const [hangmanWord, setHangmanWord] = useState(makeHangmanWord)
+  const [hangmanGuesses, setHangmanGuesses] = useState([])
+  const [reactionStatus, setReactionStatus] = useState('idle')
+  const [reactionResult, setReactionResult] = useState('')
+  const reactionTimer = useRef(null)
+  const reactionStarted = useRef(0)
+
+  useEffect(() => () => window.clearTimeout(reactionTimer.current), [])
+
+  const resetGuess = () => {
+    setSecret(Math.floor(Math.random() * 100) + 1)
+    setGuess('')
+    setGuessCount(0)
+    setGuessMessage('Pick a number from 1 to 100 to get started.')
+    setGuessWon(false)
+  }
+
+  const submitGuess = (event) => {
+    event.preventDefault()
+    const value = Number(guess)
+    if (!Number.isInteger(value) || value < 1 || value > 100) {
+      setGuessMessage('Enter a whole number from 1 to 100.')
+      return
+    }
+    const nextCount = guessCount + 1
+    setGuessCount(nextCount)
+    if (value === secret) {
+      setGuessWon(true)
+      setGuessMessage(`You got it in ${nextCount} ${nextCount === 1 ? 'guess' : 'guesses'}!`)
+    } else {
+      setGuessMessage(value < secret ? 'Too low — try a higher number.' : 'Too high — try a lower number.')
+    }
+    setGuess('')
+  }
+
+  const playRps = (player) => {
+    const choices = ['Rock', 'Paper', 'Scissors']
+    const computer = choices[Math.floor(Math.random() * choices.length)]
+    if (player === computer) {
+      setRpsScore((score) => ({ ...score, draws: score.draws + 1 }))
+      setRpsMessage(`It’s a draw — you both chose ${player}.`)
+    } else if ((player === 'Rock' && computer === 'Scissors') || (player === 'Paper' && computer === 'Rock') || (player === 'Scissors' && computer === 'Paper')) {
+      setRpsScore((score) => ({ ...score, wins: score.wins + 1 }))
+      setRpsMessage(`You win! ${player} beats ${computer}.`)
+    } else {
+      setRpsScore((score) => ({ ...score, losses: score.losses + 1 }))
+      setRpsMessage(`Computer wins — ${computer} beats ${player}.`)
+    }
+  }
+
+  const submitMathAnswer = (event) => {
+    event.preventDefault()
+    if (mathAnswer.trim() === '') {
+      setMathMessage('Enter an answer before checking.')
+      return
+    }
+    if (Number(mathAnswer) === mathQuestion.answer) {
+      setMathScore((score) => score + 1)
+      setMathMessage('Correct! Here comes another one.')
+      setMathQuestion(makeMathQuestion())
+      setMathAnswer('')
+    } else {
+      setMathMessage('Not quite — try again.')
+    }
+  }
+
+  const playTicCell = (index) => {
+    if (ticBoard[index] || getTicTacToeWinner(ticBoard) || ticBoard.every(Boolean)) return
+    const nextBoard = [...ticBoard]
+    nextBoard[index] = ticTurn
+    setTicBoard(nextBoard)
+    setTicTurn(ticTurn === 'X' ? 'O' : 'X')
+  }
+
+  const chooseMemoryCard = (index) => {
+    if (memoryLocked.current || memorySelected.includes(index) || memoryMatched.includes(index)) return
+    if (!memorySelected.length) {
+      setMemorySelected([index])
+      return
+    }
+
+    const first = memorySelected[0]
+    const nextSelected = [first, index]
+    setMemorySelected(nextSelected)
+    setMemoryMoves((moves) => moves + 1)
+    if (memoryCards[first].symbol === memoryCards[index].symbol) {
+      setMemoryMatched((matched) => [...matched, first, index])
+      setMemorySelected([])
+      return
+    }
+
+    memoryLocked.current = true
+    window.setTimeout(() => {
+      setMemorySelected([])
+      memoryLocked.current = false
+    }, 750)
+  }
+
+  const resetMemoryGame = () => {
+    memoryLocked.current = false
+    setMemoryCards(makeMemoryCards())
+    setMemorySelected([])
+    setMemoryMatched([])
+    setMemoryMoves(0)
+  }
+
+  const submitScramble = (event) => {
+    event.preventDefault()
+    if (scrambleAnswer.trim().toLowerCase() === scrambleRound.word) {
+      setScrambleMessage('Correct! Great unscrambling.')
+    } else {
+      setScrambleMessage('Not quite — give it another try.')
+    }
+  }
+
+  const resetScramble = () => {
+    setScrambleRound(makeScrambleRound())
+    setScrambleAnswer('')
+    setScrambleMessage('Unscramble the letters to find the word.')
+  }
+
+  const guessHangmanLetter = (letter) => {
+    if (!hangmanGuesses.includes(letter) && !hangmanSolved && !hangmanLost) {
+      setHangmanGuesses((guesses) => [...guesses, letter])
+    }
+  }
+
+  const resetHangman = () => {
+    setHangmanWord(makeHangmanWord())
+    setHangmanGuesses([])
+  }
+
+  const startReactionTest = () => {
+    window.clearTimeout(reactionTimer.current)
+    setReactionStatus('waiting')
+    setReactionResult('')
+    reactionTimer.current = window.setTimeout(() => {
+      reactionStarted.current = performance.now()
+      setReactionStatus('ready')
+    }, 1000 + Math.floor(Math.random() * 2500))
+  }
+
+  const clickReactionTest = () => {
+    if (reactionStatus === 'waiting') {
+      window.clearTimeout(reactionTimer.current)
+      setReactionStatus('early')
+      setReactionResult('')
+    } else if (reactionStatus === 'ready') {
+      setReactionResult(`${Math.round(performance.now() - reactionStarted.current)} ms`)
+      setReactionStatus('done')
+    }
+  }
+
+  const hangmanWrongCount = hangmanGuesses.filter((letter) => !hangmanWord.includes(letter)).length
+  const hangmanSolved = hangmanWord.split('').every((letter) => hangmanGuesses.includes(letter))
+  const hangmanLost = hangmanWrongCount >= 6
+
+  const backToList = () => {
+    window.clearTimeout(reactionTimer.current)
+    setReactionStatus('idle')
+    onBack()
+  }
+
+  return (
+    <main className="games-page container">
+      <section className="games-heading">
+        <span className="eyebrow"><Gamepad2 size={16} /> A little break</span>
+        <h1>{gameKey ? ({ guess: 'Number Guess', rps: 'Rock Paper Scissors', math: 'Quick Math', tic: 'Tic-Tac-Toe', memory: 'Memory Match', coin: 'Coin Flip', dice: 'Dice Roll', scramble: 'Word Scramble', hangman: 'Hangman', reaction: 'Reaction Test' }[gameKey] || 'Quick games') : 'Quick games'}</h1>
+        <p>{gameKey ? 'Play a quick round, then head back to choose another game.' : 'Take a short brain break with these simple, free-to-play games.'}</p>
+      </section>
+      {gameKey && <button className="back-button games-back" onClick={backToList}><ChevronLeft size={18} /> All games</button>}
+      {!gameKey && <div className="games-grid">
+        <article className="game-card">
+          <span className="game-card-icon tone-blue"><Search size={22} /></span>
+          <h2>Number Guess</h2>
+          <p>Find the hidden number between 1 and 100. We’ll tell you if your guess is too high or low.</p>
+          <button className="button button-secondary" onClick={() => onOpenGame('guess')}>Play game <ArrowRight size={16} /></button>
+        </article>
+        <article className="game-card">
+          <span className="game-card-icon tone-violet"><Dices size={22} /></span>
+          <h2>Rock Paper Scissors</h2>
+          <p>Pick your move and see if you can beat the computer.</p>
+          <button className="button button-secondary" onClick={() => onOpenGame('rps')}>Play game <ArrowRight size={16} /></button>
+        </article>
+        <article className="game-card">
+          <span className="game-card-icon tone-amber"><Atom size={22} /></span>
+          <h2>Quick Math</h2>
+          <p>Solve bite-sized addition, subtraction and multiplication questions.</p>
+          <button className="button button-secondary" onClick={() => onOpenGame('math')}>Play game <ArrowRight size={16} /></button>
+        </article>
+        <article className="game-card">
+          <span className="game-card-icon tone-cyan"><LayoutGrid size={22} /></span>
+          <h2>Tic-Tac-Toe</h2>
+          <p>Take turns with a friend and try to get three marks in a row.</p>
+          <button className="button button-secondary" onClick={() => onOpenGame('tic')}>Play game <ArrowRight size={16} /></button>
+        </article>
+        <article className="game-card">
+          <span className="game-card-icon tone-pink"><Sparkles size={22} /></span>
+          <h2>Memory Match</h2>
+          <p>Flip the cards and find all four matching pairs in as few moves as you can.</p>
+          <button className="button button-secondary" onClick={() => onOpenGame('memory')}>Play game <ArrowRight size={16} /></button>
+        </article>
+        <article className="game-card"><span className="game-card-icon tone-amber"><Dices size={22} /></span><h2>Coin Flip</h2><p>Make a quick call and let a virtual coin decide heads or tails.</p><button className="button button-secondary" onClick={() => onOpenGame('coin')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-cyan"><Dices size={22} /></span><h2>Dice Roll</h2><p>Roll a six-sided die and see what number comes up.</p><button className="button button-secondary" onClick={() => onOpenGame('dice')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-violet"><BookOpen size={22} /></span><h2>Word Scramble</h2><p>Rearrange the mixed-up letters into a familiar word.</p><button className="button button-secondary" onClick={() => onOpenGame('scramble')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-pink"><PencilLine size={22} /></span><h2>Hangman</h2><p>Guess the hidden word one letter at a time. You have six misses.</p><button className="button button-secondary" onClick={() => onOpenGame('hangman')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-blue"><Clock3 size={22} /></span><h2>Reaction Test</h2><p>Wait for the signal, then tap as quickly as you can.</p><button className="button button-secondary" onClick={() => onOpenGame('reaction')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-amber"><Dices size={22} /></span><h2>Coin Flip</h2><p>Make a quick call and let a virtual coin decide heads or tails.</p><button className="button button-secondary" onClick={() => onOpenGame('coin')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-cyan"><Dices size={22} /></span><h2>Dice Roll</h2><p>Roll a six-sided die and see what number comes up.</p><button className="button button-secondary" onClick={() => onOpenGame('dice')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-violet"><BookOpen size={22} /></span><h2>Word Scramble</h2><p>Rearrange the mixed-up letters into a familiar word.</p><button className="button button-secondary" onClick={() => onOpenGame('scramble')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-pink"><PencilLine size={22} /></span><h2>Hangman</h2><p>Guess the hidden word one letter at a time. You have six misses.</p><button className="button button-secondary" onClick={() => onOpenGame('hangman')}>Play game <ArrowRight size={16} /></button></article>
+        <article className="game-card"><span className="game-card-icon tone-blue"><Clock3 size={22} /></span><h2>Reaction Test</h2><p>Wait for the signal, then tap as quickly as you can.</p><button className="button button-secondary" onClick={() => onOpenGame('reaction')}>Play game <ArrowRight size={16} /></button></article>
+      </div>}
+      {gameKey === 'guess' && (
+        <section className="game-play-panel">
+          <div className="game-panel-heading"><div><span className="section-eyebrow">Number Guess</span><h2>What’s your guess?</h2></div><button className="button button-secondary small" onClick={resetGuess}>New number</button></div>
+          <form className="game-form" onSubmit={submitGuess}><label htmlFor="number-guess">Your number</label><div><input id="number-guess" type="number" min="1" max="100" step="1" value={guess} onChange={(event) => setGuess(event.target.value)} disabled={guessWon} /><button className="button button-primary" type="submit" disabled={guessWon}>Guess</button></div></form>
+          <p className="game-feedback" role="status">{guessMessage}</p><p className="game-score">Guesses: {guessCount}</p>
+        </section>
+      )}
+      {gameKey === 'rps' && (
+        <section className="game-play-panel">
+          <div className="game-panel-heading"><div><span className="section-eyebrow">Rock Paper Scissors</span><h2>Make your move</h2></div><button className="button button-secondary small" onClick={() => { setRpsScore({ wins: 0, losses: 0, draws: 0 }); setRpsMessage('Choose rock, paper or scissors.') }}>Reset score</button></div>
+          <div className="game-choice-row">{['Rock', 'Paper', 'Scissors'].map((choice) => <button key={choice} className="button button-secondary" onClick={() => playRps(choice)}>{choice}</button>)}</div>
+          <p className="game-feedback" role="status">{rpsMessage}</p><p className="game-score">Wins: {rpsScore.wins} · Losses: {rpsScore.losses} · Draws: {rpsScore.draws}</p>
+        </section>
+      )}
+      {gameKey === 'math' && (
+        <section className="game-play-panel">
+          <div className="game-panel-heading"><div><span className="section-eyebrow">Quick Math</span><h2>Solve: {mathQuestion.text} = ?</h2></div><span className="game-score">Score: {mathScore}</span></div>
+          <form className="game-form" onSubmit={submitMathAnswer}><label htmlFor="math-answer">Your answer</label><div><input id="math-answer" type="number" step="1" value={mathAnswer} onChange={(event) => setMathAnswer(event.target.value)} /><button className="button button-primary" type="submit">Check</button></div></form>
+          <p className="game-feedback" role="status">{mathMessage}</p>
+        </section>
+      )}
+      {gameKey === 'tic' && (
+        <section className="game-play-panel">
+          <div className="game-panel-heading"><div><span className="section-eyebrow">Tic-Tac-Toe</span><h2>{getTicTacToeWinner(ticBoard) ? `${getTicTacToeWinner(ticBoard)} wins!` : ticBoard.every(Boolean) ? 'It’s a draw!' : `${ticTurn}’s turn`}</h2></div><button className="button button-secondary small" onClick={() => { setTicBoard(Array(9).fill(null)); setTicTurn('X') }}>New game</button></div>
+          <div className="tic-board" role="group" aria-label="Tic-Tac-Toe board">{ticBoard.map((mark, index) => <button key={index} className="tic-cell" onClick={() => playTicCell(index)} aria-label={`Cell ${index + 1}${mark ? `: ${mark}` : ''}`} disabled={Boolean(mark) || Boolean(getTicTacToeWinner(ticBoard)) || ticBoard.every(Boolean)}>{mark}</button>)}</div>
+        </section>
+      )}
+      {gameKey === 'memory' && (
+        <section className="game-play-panel">
+          <div className="game-panel-heading"><div><span className="section-eyebrow">Memory Match</span><h2>{memoryMatched.length === memoryCards.length ? 'All pairs found!' : 'Find the matching pairs'}</h2></div><button className="button button-secondary small" onClick={resetMemoryGame}>New game</button></div>
+          <p className="game-score">Moves: {memoryMoves}</p>
+          <div className="memory-board">{memoryCards.map((card, index) => <button key={card.id} className={`memory-card ${memorySelected.includes(index) || memoryMatched.includes(index) ? 'revealed' : ''}`} onClick={() => chooseMemoryCard(index)} aria-label={`Card ${index + 1}${memorySelected.includes(index) || memoryMatched.includes(index) ? `: ${card.symbol}` : ''}`} disabled={memoryMatched.includes(index)}>{memorySelected.includes(index) || memoryMatched.includes(index) ? card.symbol : '?'}</button>)}</div>
+        </section>
+      )}
+      {gameKey === 'coin' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Coin Flip</span><h2>{coinResult || 'Ready to flip?'}</h2></div><button className="button button-primary" onClick={() => setCoinResult(Math.random() < 0.5 ? 'Heads!' : 'Tails!')}>Flip coin</button></div><p className="game-feedback" role="status">{coinResult ? 'Flip again for another result.' : 'Call it in the air.'}</p></section>}
+      {gameKey === 'dice' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Dice Roll</span><h2>{diceResult === null ? 'Ready to roll?' : `You rolled a ${diceResult}!`}</h2></div><button className="button button-primary" onClick={() => setDiceResult(Math.floor(Math.random() * 6) + 1)}>Roll die</button></div><p className="game-feedback" role="status">A fair six-sided roll, from 1 to 6.</p></section>}
+      {gameKey === 'scramble' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Word Scramble</span><h2 className="scramble-word" aria-label="Scrambled letters">{scrambleRound.scrambled.toUpperCase()}</h2></div><button className="button button-secondary small" onClick={() => { setScrambleRound(makeScrambleRound()); setScrambleAnswer(''); setScrambleMessage('Unscramble the letters to find the word.') }}>New word</button></div><form className="game-form" onSubmit={submitScramble}><label htmlFor="scramble-answer">Your word</label><div><input id="scramble-answer" value={scrambleAnswer} onChange={(event) => setScrambleAnswer(event.target.value)} autoComplete="off" /><button className="button button-primary" type="submit">Check</button></div></form><p className="game-feedback" role="status">{scrambleMessage}</p></section>}
+      {gameKey === 'hangman' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Hangman</span><h2>{hangmanSolved ? 'You got it!' : hangmanLost ? `The word was ${hangmanWord}.` : 'Guess the word'}</h2></div><button className="button button-secondary small" onClick={() => { setHangmanWord(makeHangmanWord()); setHangmanGuesses([]) }}>New word</button></div><p className="hangman-word">{hangmanWord.split('').map((letter, index) => <span key={index}>{hangmanGuesses.includes(letter) || hangmanLost ? letter : '_'}</span>)}</p><p className="game-score">Wrong guesses: {hangmanWrongCount} / 6</p><div className="hangman-letters">{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((letter) => <button key={letter} className="button button-secondary small" disabled={hangmanGuesses.includes(letter) || hangmanSolved || hangmanLost} onClick={() => guessHangmanLetter(letter)}>{letter}</button>)}</div></section>}
+      {gameKey === 'reaction' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Reaction Test</span><h2>{reactionStatus === 'waiting' ? 'Wait for green…' : reactionStatus === 'ready' ? 'Tap now!' : reactionStatus === 'early' ? 'Too soon! Try again.' : reactionResult ? `Your time: ${reactionResult}` : 'Test your reflexes'}</h2></div><button className="button button-secondary small" onClick={startReactionTest}>{reactionStatus === 'waiting' || reactionStatus === 'ready' ? 'Try again' : 'Start test'}</button></div><button className={`reaction-pad ${reactionStatus === 'ready' ? 'ready' : ''}`} onClick={clickReactionTest} disabled={reactionStatus !== 'waiting' && reactionStatus !== 'ready'}>{reactionStatus === 'waiting' ? 'Wait…' : reactionStatus === 'ready' ? 'TAP!' : reactionStatus === 'early' ? 'Too soon' : 'Start the test above'}</button><p className="game-feedback" role="status">{reactionResult ? `Reaction time: ${reactionResult}` : reactionStatus === 'early' ? 'Wait until the pad turns green before tapping.' : 'The signal appears after a random delay.'}</p></section>}
+      {gameKey === 'coin' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Coin Flip</span><h2>{coinResult || 'Ready to flip?'}</h2></div><button className="button button-primary" onClick={() => setCoinResult(Math.random() < 0.5 ? 'Heads!' : 'Tails!')}>Flip coin</button></div><p className="game-feedback" role="status">{coinResult ? 'Flip again for another result.' : 'Call it in the air.'}</p></section>}
+      {gameKey === 'dice' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Dice Roll</span><h2>{diceResult === null ? 'Ready to roll?' : `You rolled a ${diceResult}!`}</h2></div><button className="button button-primary" onClick={() => setDiceResult(Math.floor(Math.random() * 6) + 1)}>Roll die</button></div><p className="game-feedback" role="status">A fair six-sided roll, from 1 to 6.</p></section>}
+      {gameKey === 'scramble' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Word Scramble</span><h2 className="scramble-word" aria-label="Scrambled letters">{scrambleRound.scrambled.toUpperCase()}</h2></div><button className="button button-secondary small" onClick={resetScramble}>New word</button></div><form className="game-form" onSubmit={submitScramble}><label htmlFor="scramble-answer">Your word</label><div><input id="scramble-answer" value={scrambleAnswer} onChange={(event) => setScrambleAnswer(event.target.value)} autoComplete="off" /><button className="button button-primary" type="submit">Check</button></div></form><p className="game-feedback" role="status">{scrambleMessage}</p></section>}
+      {gameKey === 'hangman' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Hangman</span><h2>{hangmanSolved ? 'You got it!' : hangmanLost ? `The word was ${hangmanWord}.` : 'Guess the word'}</h2></div><button className="button button-secondary small" onClick={resetHangman}>New word</button></div><p className="hangman-word">{hangmanWord.split('').map((letter, index) => <span key={index}>{hangmanGuesses.includes(letter) || hangmanLost ? letter : '_'}</span>)}</p><p className="game-score">Wrong guesses: {hangmanWrongCount} / 6</p><div className="hangman-letters">{'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((letter) => <button key={letter} className="button button-secondary small" disabled={hangmanGuesses.includes(letter) || hangmanSolved || hangmanLost} onClick={() => guessHangmanLetter(letter)}>{letter}</button>)}</div></section>}
+      {gameKey === 'reaction' && <section className="game-play-panel"><div className="game-panel-heading"><div><span className="section-eyebrow">Reaction Test</span><h2>{reactionStatus === 'waiting' ? 'Wait for green…' : reactionStatus === 'ready' ? 'Tap now!' : reactionStatus === 'early' ? 'Too soon! Try again.' : reactionResult ? `Your time: ${reactionResult}` : 'Test your reflexes'}</h2></div><button className="button button-secondary small" onClick={startReactionTest}>{reactionStatus === 'waiting' || reactionStatus === 'ready' ? 'Try again' : 'Start test'}</button></div><button className={`reaction-pad ${reactionStatus === 'ready' ? 'ready' : ''}`} onClick={clickReactionTest} disabled={reactionStatus !== 'waiting' && reactionStatus !== 'ready'}>{reactionStatus === 'waiting' ? 'Wait…' : reactionStatus === 'ready' ? 'TAP!' : reactionStatus === 'early' ? 'Too soon' : 'Start the test above'}</button><p className="game-feedback" role="status">{reactionResult ? `Reaction time: ${reactionResult}` : reactionStatus === 'early' ? 'Wait until the pad turns green before tapping.' : 'The signal appears after a random delay.'}</p></section>}
     </main>
   )
 }

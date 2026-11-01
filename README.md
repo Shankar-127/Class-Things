@@ -6,13 +6,13 @@ Class Things is a responsive student resource portal built with plain HTML, CSS,
 
 - index.html — page shell and script/style references
 - styles.css — responsive visual design
-- script.js — navigation, search, filters, theme toggle, preview, downloads, sharing, and forms
+- script.js — navigation, search, filters, theme toggle, previews, downloads, sharing, forms, and mini-games
 - site-data.js — the local subject and PDF catalog
 - Sources/ and Creator/ — real PDFs and images served by the site
 
 ## Run locally
 
-Open index.html in a modern browser. If your browser blocks local PDF actions, serve the folder with any static web server, for example:
+Open index.html in a modern browser. The Games navigation includes Number Guess, Rock Paper Scissors, Quick Math, Tic-Tac-Toe, Memory Match, Coin Flip, Dice Roll, Word Scramble, Hangman, and Reaction Test. If your browser blocks local PDF actions, serve the folder with any static web server, for example:
 
     python -m http.server 8000
 

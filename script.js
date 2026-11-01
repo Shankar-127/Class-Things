@@ -16,6 +16,56 @@
     return subject.fileCount > 0;
   }).length;
 
+  function makeMathQuestion() {
+    const left = Math.floor(Math.random() * 12) + 1;
+    const right = Math.floor(Math.random() * 12) + 1;
+    const operator = ['+', '-', '×'][Math.floor(Math.random() * 3)];
+    const first = operator === '-' && right > left ? right : left;
+    const second = operator === '-' && right > left ? left : right;
+    return {
+      text: first + ' ' + operator + ' ' + second,
+      answer: operator === '+' ? first + second : operator === '-' ? first - second : first * second
+    };
+  }
+
+  function makeMemoryCards() {
+    const symbols = ['🍎', '⭐', '🎈', '🌙'];
+    return symbols.concat(symbols).map(function (symbol, index) {
+      return { id: index, symbol: symbol };
+    }).sort(function () {
+      return Math.random() - 0.5;
+    });
+  }
+
+  const scrambleWords = ['planet', 'garden', 'school', 'pencil', 'orange', 'rocket', 'window', 'bridge'];
+  const hangmanWords = ['PLANET', 'GARDEN', 'PUZZLE', 'ROCKET', 'ORANGE', 'STREAM'];
+
+  function makeScrambleRound() {
+    const word = scrambleWords[Math.floor(Math.random() * scrambleWords.length)];
+    let scrambled = word.split('').sort(function () {
+      return Math.random() - 0.5;
+    }).join('');
+    if (scrambled === word) {
+      scrambled = word.slice(1) + word[0];
+    }
+    return { word: word, scrambled: scrambled };
+  }
+
+  function makeHangmanWord() {
+    return hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+  }
+
+  function ticTacToeWinner(board) {
+    const lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+    for (let index = 0; index < lines.length; index += 1) {
+      const line = lines[index];
+      if (board[line[0]] && board[line[0]] === board[line[1]] && board[line[0]] === board[line[2]]) {
+        return board[line[0]];
+      }
+    }
+    return null;
+  }
+
   const sourceVisuals = {
     'CM LAB': { icon: 'laptop', tone: 'cyan' },
     DAA: { icon: 'code-2', tone: 'violet' },
@@ -63,10 +113,43 @@
     feedbackType: 'Idea',
     feedback: '',
     name: '',
-    message: ''
+    message: '',
+    gameChoice: '',
+    guessSecret: Math.floor(Math.random() * 100) + 1,
+    guessInput: '',
+    guessCount: 0,
+    guessMessage: 'Pick a number from 1 to 100 to get started.',
+    guessWon: false,
+    rpsWins: 0,
+    rpsLosses: 0,
+    rpsDraws: 0,
+    rpsMessage: 'Choose rock, paper or scissors.',
+    mathQuestion: makeMathQuestion(),
+    mathInput: '',
+    mathScore: 0,
+    mathMessage: 'Solve the problem, then check your answer.',
+    ticBoard: Array(9).fill(null),
+    ticTurn: 'X',
+    memoryCards: makeMemoryCards(),
+    memorySelected: [],
+    memoryMatched: [],
+    memoryMoves: 0,
+    memoryLocked: false,
+    coinResult: '',
+    diceResult: null,
+    scrambleRound: makeScrambleRound(),
+    scrambleInput: '',
+    scrambleMessage: 'Unscramble the letters to find the word.',
+    hangmanWord: makeHangmanWord(),
+    hangmanGuesses: [],
+    reactionStatus: 'idle',
+    reactionResult: '',
+    reactionStarted: 0
   };
 
   let toastTimer;
+  let memoryTimer;
+  let reactionTimer;
 
   function readTheme() {
     try {
@@ -155,6 +238,8 @@
   function routeTo(route) {
     state.mobileOpen = false;
     state.globalSearchOpen = false;
+    window.clearTimeout(reactionTimer);
+    state.reactionStatus = 'idle';
     if (window.location.hash === route) {
       applyRoute(false);
       return;
@@ -172,6 +257,7 @@
     state.globalSearchOpen = false;
     state.mobileOpen = false;
     state.activeSection = 'introduction';
+    state.gameChoice = '';
 
     if (route === 'recents') {
       state.page = 'home';
@@ -217,6 +303,11 @@
     } else if (route === 'creator') {
       state.page = 'creator';
       state.activeNav = 'Creator';
+    } else if (route === 'games') {
+      state.page = 'games';
+      state.activeNav = 'Games';
+      const game = path[1];
+      state.gameChoice = ['guess', 'rps', 'math', 'tic', 'memory', 'coin', 'dice', 'scramble', 'hangman', 'reaction'].indexOf(game) !== -1 ? game : '';
     } else {
       state.page = 'home';
       state.activeNav = 'Home';
@@ -247,6 +338,7 @@
     const navItems = [
       ['Home', '#/home'],
       ['Recents', '#/recents'],
+      ['Games', '#/games'],
       ['Creator', '#/creator']
     ];
     const navMarkup = navItems.map(function (item) {
@@ -346,6 +438,17 @@
         '<button type="button" data-action="preview" data-resource-id="' + escapeHtml(resource.id) + '" aria-label="Open ' + escapeHtml(resource.title) + '">' + icon('arrow-right', 18) + '</button></div>' +
       '</article>';
     }).join('');
+    const featuredGames = [
+      ['math', 'calculator', 'Quick Math', 'Warm up with a few bite-sized number puzzles.', 'violet'],
+      ['memory', 'sparkles', 'Memory Match', 'Flip cards and find every matching pair.', 'pink'],
+      ['scramble', 'case-sensitive', 'Word Scramble', 'Untangle the letters to reveal the word.', 'amber']
+    ].map(function (game) {
+      return '<article class="home-game-card">' +
+        '<span class="game-card-icon tone-' + game[4] + '">' + icon(game[1], 22) + '</span>' +
+        '<h3>' + game[2] + '</h3><p>' + game[3] + '</p>' +
+        '<button type="button" class="text-action" data-route="#/games/' + game[0] + '">Play now ' + icon('arrow-right', 16) + '</button>' +
+      '</article>';
+    }).join('');
 
     return '<main>' +
       '<section class="home-hero container">' +
@@ -374,12 +477,32 @@
         sectionHeading('From the Sources folder', 'Recently added files', '#/sources') +
         '<div class="recent-grid">' + recentCards + '</div>' +
       '</section>' +
+      '<section class="content-section container home-games-section">' +
+        '<div class="section-heading"><div><span class="section-eyebrow">Take a study break</span><h2>Quick games</h2></div>' +
+        '<button type="button" class="text-action" data-route="#/games">Explore all games ' + icon('arrow-right', 16) + '</button></div>' +
+        '<div class="home-games-grid">' + featuredGames + '</div>' +
+      '</section>' +
       '<section class="container study-banner">' +
         '<div class="study-icon">' + icon('graduation-cap', 25) + '</div>' +
         '<div><strong>Everything for your next study session.</strong><span>Keep your class materials tidy, useful, and ready when you are.</span></div>' +
         '<button type="button" class="text-action" data-route="#/sources">Browse all files ' + icon('arrow-right', 16) + '</button>' +
       '</section>' +
     '</main>';
+  }
+
+  function footer() {
+    return '<footer class="site-footer">' +
+      '<div class="container footer-main">' +
+        '<div class="footer-about"><p>Your class notes, programs, and study breaks — all in one place.</p></div>' +
+        '<div class="footer-links"><span class="footer-label">Explore</span>' +
+          '<button type="button" data-route="#/sources">Study resources</button>' +
+          '<button type="button" data-route="#/games">Quick games</button>' +
+          '<button type="button" data-route="#/creator">About the creator</button></div>' +
+        '<div class="footer-note"><span class="footer-label">A little reminder</span>' +
+          '<p>Take it one topic at a time. You&rsquo;ve got this.</p></div>' +
+      '</div>' +
+      '<div class="container footer-bottom"><span>&copy; ' + new Date().getFullYear() + ' Class Things</span><span>Made for learning, one page at a time.</span></div>' +
+    '</footer>';
   }
 
   function subjectPage() {
@@ -569,7 +692,92 @@
     '</main>';
   }
 
+  function gamesPage() {
+    const cards = state.gameChoice ? '' : [
+      ['guess', 'search', 'Number Guess', 'Find the hidden number from 1 to 100. Get a hint after each guess.'],
+      ['rps', 'dices', 'Rock Paper Scissors', 'Choose your move and see if you can beat the computer.'],
+      ['math', 'atom', 'Quick Math', 'Solve bite-sized addition, subtraction and multiplication questions.'],
+      ['tic', 'layout-grid', 'Tic-Tac-Toe', 'Take turns with a friend and try to get three marks in a row.'],
+      ['memory', 'sparkles', 'Memory Match', 'Flip the cards and find all four matching pairs in as few moves as you can.'],
+      ['coin', 'dices', 'Coin Flip', 'Make a quick call and let a virtual coin decide heads or tails.'],
+      ['dice', 'dices', 'Dice Roll', 'Roll a six-sided die and see what number comes up.'],
+      ['scramble', 'book-open', 'Word Scramble', 'Rearrange the mixed-up letters into a familiar word.'],
+      ['hangman', 'pencil-line', 'Hangman', 'Guess the hidden word one letter at a time. You have six misses.'],
+      ['reaction', 'clock-3', 'Reaction Test', 'Wait for the signal, then tap as quickly as you can.']
+    ].map(function (game) {
+      return '<article class="game-card' + (state.gameChoice === game[0] ? ' selected' : '') + '">' +
+        '<span class="game-card-icon tone-' + (game[0] === 'guess' ? 'blue' : game[0] === 'rps' ? 'violet' : 'amber') + '">' + icon(game[1], 22) + '</span>' +
+        '<h2>' + game[2] + '</h2><p>' + game[3] + '</p>' +
+        '<button type="button" class="button button-secondary" data-action="select-game" data-game="' + game[0] + '">Play game ' + icon('arrow-right', 16) + '</button>' +
+      '</article>';
+    }).join('');
+
+    let panel = '';
+    if (state.gameChoice === 'guess') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Number Guess</span><h2>What&rsquo;s your guess?</h2></div><button type="button" class="button button-secondary small" data-action="reset-guess">New number</button></div>' +
+        '<form class="game-form" data-game-form="guess"><label for="number-guess">Your number</label><div><input id="number-guess" type="number" min="1" max="100" step="1" data-model="guessInput" value="' + escapeHtml(state.guessInput) + '"' + (state.guessWon ? ' disabled' : '') + '><button class="button button-primary" type="submit"' + (state.guessWon ? ' disabled' : '') + '>Guess</button></div></form>' +
+        '<p class="game-feedback" role="status">' + escapeHtml(state.guessMessage) + '</p><p class="game-score">Guesses: ' + state.guessCount + '</p></section>';
+    } else if (state.gameChoice === 'rps') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Rock Paper Scissors</span><h2>Make your move</h2></div><button type="button" class="button button-secondary small" data-action="reset-rps">Reset score</button></div>' +
+        '<div class="game-choice-row"><button type="button" class="button button-secondary" data-action="play-rps" data-choice="Rock">Rock</button><button type="button" class="button button-secondary" data-action="play-rps" data-choice="Paper">Paper</button><button type="button" class="button button-secondary" data-action="play-rps" data-choice="Scissors">Scissors</button></div>' +
+        '<p class="game-feedback" role="status">' + escapeHtml(state.rpsMessage) + '</p><p class="game-score">Wins: ' + state.rpsWins + ' · Losses: ' + state.rpsLosses + ' · Draws: ' + state.rpsDraws + '</p></section>';
+    } else if (state.gameChoice === 'math') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Quick Math</span><h2>Solve: ' + escapeHtml(state.mathQuestion.text) + ' = ?</h2></div><span class="game-score">Score: ' + state.mathScore + '</span></div>' +
+        '<form class="game-form" data-game-form="math"><label for="math-answer">Your answer</label><div><input id="math-answer" type="number" step="1" data-model="mathInput" value="' + escapeHtml(state.mathInput) + '"><button class="button button-primary" type="submit">Check</button></div></form><p class="game-feedback" role="status">' + escapeHtml(state.mathMessage) + '</p></section>';
+    } else if (state.gameChoice === 'tic') {
+      const winner = ticTacToeWinner(state.ticBoard);
+      const gameStatus = winner ? winner + ' wins!' : state.ticBoard.every(Boolean) ? 'It&rsquo;s a draw!' : state.ticTurn + '&rsquo;s turn';
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Tic-Tac-Toe</span><h2>' + gameStatus + '</h2></div><button type="button" class="button button-secondary small" data-action="reset-tic">New game</button></div>' +
+        '<div class="tic-board" role="group" aria-label="Tic-Tac-Toe board">' + state.ticBoard.map(function (mark, index) {
+          return '<button type="button" class="tic-cell" data-action="tic-cell" data-cell="' + index + '" aria-label="Cell ' + (index + 1) + (mark ? ': ' + mark : '') + '"' + (mark || winner || state.ticBoard.every(Boolean) ? ' disabled' : '') + '>' + (mark || '') + '</button>';
+        }).join('') + '</div></section>';
+    } else if (state.gameChoice === 'memory') {
+      const complete = state.memoryMatched.length === state.memoryCards.length;
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Memory Match</span><h2>' + (complete ? 'All pairs found!' : 'Find the matching pairs') + '</h2></div><button type="button" class="button button-secondary small" data-action="reset-memory">New game</button></div>' +
+        '<p class="game-score">Moves: ' + state.memoryMoves + '</p><div class="memory-board">' + state.memoryCards.map(function (card, index) {
+          const revealed = state.memorySelected.indexOf(index) !== -1 || state.memoryMatched.indexOf(index) !== -1;
+          const matched = state.memoryMatched.indexOf(index) !== -1;
+          return '<button type="button" class="memory-card' + (revealed ? ' revealed' : '') + '" data-action="memory-card" data-cell="' + index + '" aria-label="Card ' + (index + 1) + (revealed ? ': ' + card.symbol : '') + '"' + (matched ? ' disabled' : '') + '>' + (revealed ? card.symbol : '?') + '</button>';
+        }).join('') + '</div></section>';
+    } else if (state.gameChoice === 'coin') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Coin Flip</span><h2>' + (state.coinResult || 'Ready to flip?') + '</h2></div><button type="button" class="button button-primary" data-action="flip-coin">Flip coin</button></div><p class="game-feedback" role="status">' + (state.coinResult ? 'Flip again for another result.' : 'Call it in the air.') + '</p></section>';
+    } else if (state.gameChoice === 'dice') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Dice Roll</span><h2>' + (state.diceResult === null ? 'Ready to roll?' : 'You rolled a ' + state.diceResult + '!') + '</h2></div><button type="button" class="button button-primary" data-action="roll-dice">Roll die</button></div><p class="game-feedback" role="status">A fair six-sided roll, from 1 to 6.</p></section>';
+    } else if (state.gameChoice === 'scramble') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Word Scramble</span><h2 class="scramble-word">' + escapeHtml(state.scrambleRound.scrambled.toUpperCase()) + '</h2></div><button type="button" class="button button-secondary small" data-action="new-scramble">New word</button></div><form class="game-form" data-game-form="scramble"><label for="scramble-answer">Your word</label><div><input id="scramble-answer" data-model="scrambleInput" value="' + escapeHtml(state.scrambleInput) + '" autocomplete="off"><button class="button button-primary" type="submit">Check</button></div></form><p class="game-feedback" role="status">' + escapeHtml(state.scrambleMessage) + '</p></section>';
+    } else if (state.gameChoice === 'hangman') {
+      const wrong = state.hangmanGuesses.filter(function (letter) { return state.hangmanWord.indexOf(letter) === -1; }).length;
+      const solved = state.hangmanWord.split('').every(function (letter) { return state.hangmanGuesses.indexOf(letter) !== -1; });
+      const lost = wrong >= 6;
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(function (letter) {
+        const guessed = state.hangmanGuesses.indexOf(letter) !== -1;
+        return '<button type="button" class="button button-secondary small" data-action="hangman-letter" data-letter="' + letter + '"' + (guessed || solved || lost ? ' disabled' : '') + '>' + letter + '</button>';
+      }).join('');
+      const wordTitle = solved ? 'You got it!' : lost ? 'The word was ' + state.hangmanWord + '.' : 'Guess the word';
+      const word = state.hangmanWord.split('').map(function (letter) {
+        return '<span>' + (state.hangmanGuesses.indexOf(letter) !== -1 || lost ? letter : '_') + '</span>';
+      }).join('');
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Hangman</span><h2>' + wordTitle + '</h2></div><button type="button" class="button button-secondary small" data-action="new-hangman">New word</button></div><p class="hangman-word">' + word + '</p><p class="game-score">Wrong guesses: ' + wrong + ' / 6</p><div class="hangman-letters">' + letters + '</div></section>';
+    } else if (state.gameChoice === 'reaction') {
+      const reactionTitle = state.reactionStatus === 'waiting' ? 'Wait for green…' : state.reactionStatus === 'ready' ? 'Tap now!' : state.reactionStatus === 'early' ? 'Too soon! Try again.' : state.reactionResult ? 'Your time: ' + state.reactionResult : 'Test your reflexes';
+      const padText = state.reactionStatus === 'waiting' ? 'Wait…' : state.reactionStatus === 'ready' ? 'TAP!' : state.reactionStatus === 'early' ? 'Too soon' : 'Start the test above';
+      const padClass = state.reactionStatus === 'ready' ? ' ready' : '';
+      const reactionMessage = state.reactionResult ? 'Reaction time: ' + state.reactionResult : state.reactionStatus === 'early' ? 'Wait until the pad turns green before tapping.' : 'The signal appears after a random delay.';
+      const startLabel = state.reactionStatus === 'waiting' || state.reactionStatus === 'ready' ? 'Try again' : 'Start test';
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Reaction Test</span><h2>' + reactionTitle + '</h2></div><button type="button" class="button button-secondary small" data-action="start-reaction">' + startLabel + '</button></div><button type="button" class="reaction-pad' + padClass + '" data-action="reaction-click"' + (state.reactionStatus === 'waiting' || state.reactionStatus === 'ready' ? '' : ' disabled') + '>' + padText + '</button><p class="game-feedback" role="status">' + reactionMessage + '</p></section>';
+    }
+
+    const titles = { guess: 'Number Guess', rps: 'Rock Paper Scissors', math: 'Quick Math', tic: 'Tic-Tac-Toe', memory: 'Memory Match', coin: 'Coin Flip', dice: 'Dice Roll', scramble: 'Word Scramble', hangman: 'Hangman', reaction: 'Reaction Test' };
+    const heading = state.gameChoice ? titles[state.gameChoice] : 'Quick games';
+    const intro = state.gameChoice ? 'Play a quick round, then head back to choose another game.' : 'Take a short brain break with these simple, free-to-play games.';
+    const back = state.gameChoice ? '<button type="button" class="back-button games-back" data-route="#/games">' + icon('chevron-left', 18) + ' All games</button>' : '';
+    return '<main class="games-page container"><section class="games-heading"><span class="eyebrow">' + icon('gamepad-2', 16) + ' A little break</span><h1>' + heading + '</h1><p>' + intro + '</p></section>' + back + (state.gameChoice ? '' : '<div class="games-grid">' + cards + '</div>') + panel + '</main>';
+  }
+
   function pageMarkup() {
+    if (state.page === 'games') {
+      return gamesPage();
+    }
     if (state.page === 'subject') {
       return subjectPage();
     }
@@ -583,7 +791,7 @@
   }
 
   function render() {
-    app.innerHTML = '<div class="app-shell ' + (state.theme === 'dark' ? 'dark' : '') + '">' + header() + pageMarkup() + '</div>';
+    app.innerHTML = '<div class="app-shell ' + (state.theme === 'dark' ? 'dark' : '') + '">' + header() + pageMarkup() + footer() + '</div>';
     refreshIcons();
     document.querySelector('meta[name="theme-color"]').setAttribute('content', state.theme === 'dark' ? '#0b1220' : '#2563eb');
 
@@ -696,7 +904,120 @@
     const action = target.dataset.action;
     const resource = resourceById(target.dataset.resourceId);
 
-    if (action === 'toggle-global-search') {
+    if (action === 'select-game') {
+      routeTo('#/games/' + target.dataset.game);
+    } else if (action === 'flip-coin') {
+      state.coinResult = Math.random() < 0.5 ? 'Heads!' : 'Tails!';
+      render();
+    } else if (action === 'roll-dice') {
+      state.diceResult = Math.floor(Math.random() * 6) + 1;
+      render();
+    } else if (action === 'new-scramble') {
+      state.scrambleRound = makeScrambleRound();
+      state.scrambleInput = '';
+      state.scrambleMessage = 'Unscramble the letters to find the word.';
+      render();
+    } else if (action === 'hangman-letter') {
+      if (state.hangmanGuesses.indexOf(target.dataset.letter) === -1) {
+        state.hangmanGuesses.push(target.dataset.letter);
+        render();
+      }
+    } else if (action === 'new-hangman') {
+      state.hangmanWord = makeHangmanWord();
+      state.hangmanGuesses = [];
+      render();
+    } else if (action === 'start-reaction') {
+      window.clearTimeout(reactionTimer);
+      state.reactionStatus = 'waiting';
+      state.reactionResult = '';
+      render();
+      reactionTimer = window.setTimeout(function () {
+        state.reactionStarted = performance.now();
+        state.reactionStatus = 'ready';
+        render();
+      }, 1000 + Math.floor(Math.random() * 2500));
+    } else if (action === 'reaction-click') {
+      if (state.reactionStatus === 'waiting') {
+        window.clearTimeout(reactionTimer);
+        state.reactionStatus = 'early';
+        state.reactionResult = '';
+        render();
+      } else if (state.reactionStatus === 'ready') {
+        state.reactionResult = Math.round(performance.now() - state.reactionStarted) + ' ms';
+        state.reactionStatus = 'done';
+        render();
+      }
+    } else if (action === 'tic-cell') {
+      const cell = Number(target.dataset.cell);
+      if (!state.ticBoard[cell] && !ticTacToeWinner(state.ticBoard) && !state.ticBoard.every(Boolean)) {
+        state.ticBoard[cell] = state.ticTurn;
+        state.ticTurn = state.ticTurn === 'X' ? 'O' : 'X';
+        render();
+      }
+    } else if (action === 'reset-tic') {
+      state.ticBoard = Array(9).fill(null);
+      state.ticTurn = 'X';
+      render();
+    } else if (action === 'memory-card') {
+      const cell = Number(target.dataset.cell);
+      if (!state.memoryLocked && state.memorySelected.indexOf(cell) === -1 && state.memoryMatched.indexOf(cell) === -1) {
+        if (!state.memorySelected.length) {
+          state.memorySelected = [cell];
+        } else {
+          const first = state.memorySelected[0];
+          state.memorySelected = [first, cell];
+          state.memoryMoves += 1;
+          if (state.memoryCards[first].symbol === state.memoryCards[cell].symbol) {
+            state.memoryMatched = state.memoryMatched.concat([first, cell]);
+            state.memorySelected = [];
+          } else {
+            state.memoryLocked = true;
+            memoryTimer = window.setTimeout(function () {
+              state.memorySelected = [];
+              state.memoryLocked = false;
+              render();
+            }, 750);
+          }
+        }
+        render();
+      }
+    } else if (action === 'reset-memory') {
+      window.clearTimeout(memoryTimer);
+      state.memoryLocked = false;
+      state.memoryCards = makeMemoryCards();
+      state.memorySelected = [];
+      state.memoryMatched = [];
+      state.memoryMoves = 0;
+      render();
+    } else if (action === 'reset-guess') {
+      state.guessSecret = Math.floor(Math.random() * 100) + 1;
+      state.guessInput = '';
+      state.guessCount = 0;
+      state.guessMessage = 'Pick a number from 1 to 100 to get started.';
+      state.guessWon = false;
+      render();
+    } else if (action === 'play-rps') {
+      const player = target.dataset.choice;
+      const choices = ['Rock', 'Paper', 'Scissors'];
+      const computer = choices[Math.floor(Math.random() * choices.length)];
+      if (player === computer) {
+        state.rpsDraws += 1;
+        state.rpsMessage = 'It’s a draw — you both chose ' + player + '.';
+      } else if ((player === 'Rock' && computer === 'Scissors') || (player === 'Paper' && computer === 'Rock') || (player === 'Scissors' && computer === 'Paper')) {
+        state.rpsWins += 1;
+        state.rpsMessage = 'You win! ' + player + ' beats ' + computer + '.';
+      } else {
+        state.rpsLosses += 1;
+        state.rpsMessage = 'Computer wins — ' + computer + ' beats ' + player + '.';
+      }
+      render();
+    } else if (action === 'reset-rps') {
+      state.rpsWins = 0;
+      state.rpsLosses = 0;
+      state.rpsDraws = 0;
+      state.rpsMessage = 'Choose rock, paper or scissors.';
+      render();
+    } else if (action === 'toggle-global-search') {
       state.globalSearchOpen = !state.globalSearchOpen;
       render();
     } else if (action === 'toggle-theme') {
@@ -791,7 +1112,41 @@
   app.addEventListener('submit', function (event) {
     const form = event.target;
     event.preventDefault();
-    if (form.dataset.form === 'global-search') {
+    if (form.dataset.gameForm === 'guess') {
+      const guess = Number(state.guessInput);
+      if (!Number.isInteger(guess) || guess < 1 || guess > 100) {
+        state.guessMessage = 'Enter a whole number from 1 to 100.';
+      } else {
+        state.guessCount += 1;
+        if (guess === state.guessSecret) {
+          state.guessWon = true;
+          state.guessMessage = 'You got it in ' + state.guessCount + (state.guessCount === 1 ? ' guess!' : ' guesses!');
+        } else {
+          state.guessMessage = guess < state.guessSecret ? 'Too low — try a higher number.' : 'Too high — try a lower number.';
+        }
+        state.guessInput = '';
+      }
+      render();
+    } else if (form.dataset.gameForm === 'math') {
+      if (!state.mathInput.trim()) {
+        state.mathMessage = 'Enter an answer before checking.';
+      } else if (Number(state.mathInput) === state.mathQuestion.answer) {
+        state.mathScore += 1;
+        state.mathMessage = 'Correct! Here comes another one.';
+        state.mathQuestion = makeMathQuestion();
+        state.mathInput = '';
+      } else {
+        state.mathMessage = 'Not quite — try again.';
+      }
+      render();
+    } else if (form.dataset.gameForm === 'scramble') {
+      if (state.scrambleInput.trim().toLowerCase() === state.scrambleRound.word) {
+        state.scrambleMessage = 'Correct! Great unscrambling.';
+      } else {
+        state.scrambleMessage = 'Not quite — give it another try.';
+      }
+      render();
+    } else if (form.dataset.form === 'global-search') {
       const query = state.globalSearch.trim();
       routeTo('#/sources' + (query ? '?q=' + encodeURIComponent(query) : ''));
     } else if (form.dataset.form === 'feedback') {
