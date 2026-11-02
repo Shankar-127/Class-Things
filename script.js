@@ -419,16 +419,9 @@
         icon('arrow-right', 17, 'subject-arrow') +
       '</button>';
     }).join('');
-    const recentSdtIds = new Set([
-      'SDT/Decision theory - Unit-IV.pdf',
-      'SDT/Proportions & Confidence interval.pdf',
-      'SDT/Test of Hypothesis.pdf',
-      'SDT/UNIT- V Statistical Learning.pdf',
-      'SDT/t-test & F-test for small samples.pdf'
-    ]);
-    const recentCards = resources.filter(function (resource) {
-      return recentSdtIds.has(resource.id);
-    }).map(function (resource) {
+    const recentCards = resources.slice().sort(function (first, second) {
+      return second.modifiedMs - first.modifiedMs;
+    }).slice(0, 5).map(function (resource) {
       const visual = getVisual(resource.subject);
       return '<article class="recent-card">' +
         '<div class="recent-top"><span class="file-icon tone-' + visual.tone + '">' + icon(visual.icon, 22) + '</span>' + typeBadge(resource.type) + '</div>' +
