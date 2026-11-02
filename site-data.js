@@ -12,7 +12,7 @@
   },
   {
     "name": "DAA",
-    "fileCount": 6
+    "fileCount": 10
   },
   {
     "name": "DBMS",
@@ -681,6 +681,82 @@
     "url": "./Sources/DBMS/UNIT-1%20notes.pdf"
   },
   {
+    "id": "DAA/DAA IV-Unit- BACK TRACKING.pdf",
+    "subject": "DAA",
+    "filename": "DAA IV-Unit- BACK TRACKING.pdf",
+    "title": "DAA IV-Unit- BACK TRACKING",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "DAA notes covering backtracking algorithms and examples.",
+    "topics": [
+      "DAA",
+      "backtracking",
+      "revision"
+    ],
+    "size": "4.63 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793606400000,
+    "url": "./Sources/DAA/DAA%20IV-Unit-%20BACK%20TRACKING.pdf"
+  },
+  {
+    "id": "DAA/DAA IV-Unit- BRANCH AND BOUND.pdf",
+    "subject": "DAA",
+    "filename": "DAA IV-Unit- BRANCH AND BOUND.pdf",
+    "title": "DAA IV-Unit- BRANCH AND BOUND",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "DAA notes covering branch and bound algorithms and examples.",
+    "topics": [
+      "DAA",
+      "branch and bound",
+      "revision"
+    ],
+    "size": "4.18 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793606400001,
+    "url": "./Sources/DAA/DAA%20IV-Unit-%20BRANCH%20AND%20BOUND.pdf"
+  },
+  {
+    "id": "DAA/DAA Unit V notes .pdf",
+    "subject": "DAA",
+    "filename": "DAA Unit V notes .pdf",
+    "title": "DAA Unit V notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "DAA Unit V notes covering the main concepts and examples.",
+    "topics": [
+      "DAA",
+      "Unit V",
+      "revision"
+    ],
+    "size": "2.17 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793606400002,
+    "url": "./Sources/DAA/DAA%20Unit%20V%20notes%20.pdf"
+  },
+  {
+    "id": "DAA/unit3 part2 complete notes.pdf",
+    "subject": "DAA",
+    "filename": "unit3 part2 complete notes.pdf",
+    "title": "unit3 part2 complete notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit notes",
+    "summary": "DAA Unit III notes covering the remaining topics and examples.",
+    "topics": [
+      "DAA",
+      "Unit III",
+      "revision"
+    ],
+    "size": "2.45 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793606400003,
+    "url": "./Sources/DAA/unit3%20part2%20complete%20notes.pdf"
+  },
+  {
     "id": "DAA/DAA_III-Unit.pdf",
     "subject": "DAA",
     "filename": "DAA_III-Unit.pdf",
@@ -1316,7 +1392,7 @@
       "Graph problems"
     ],
     "tip": "Write the recurrence or logic followed by an example before you memorize the final pseudocode.",
-    "status": "6 source PDFs are ready for revision.",
+    "status": "10 source PDFs are ready for revision.",
     "faculty": "Mrs. V.Adilakshmi"
   },
   "DBMS": {
@@ -1446,7 +1522,7 @@
 
   const summary = {
   "subjectCount": 11,
-  "fileCount": 65
+  "fileCount": 69
 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };
