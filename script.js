@@ -66,6 +66,65 @@
     return null;
   }
 
+  const games = [
+    { id: 'guess', icon: 'search', name: 'Number Guess', description: 'Find the hidden number from 1 to 100. Get a hint after each guess.', tone: 'blue', art: ['?', '1-100', 'HIGH / LOW'] },
+    { id: 'rps', icon: 'dices', name: 'Rock Paper Scissors', description: 'Choose your move and see if you can beat the computer.', tone: 'violet', art: ['ROCK', 'PAPER', 'SCISSORS'] },
+    { id: 'math', icon: 'atom', name: 'Quick Math', description: 'Solve bite-sized addition, subtraction and multiplication questions.', tone: 'amber', art: ['+', '-', 'x'] },
+    { id: 'tic', icon: 'layout-grid', name: 'Tic-Tac-Toe', description: 'Take turns with a friend and try to get three marks in a row.', tone: 'blue', art: ['X', 'O', '3 IN A ROW'] },
+    { id: 'memory', icon: 'sparkles', name: 'Memory Match', description: 'Flip the cards and find all four matching pairs in as few moves as you can.', tone: 'violet', art: ['?', '*', '?'] },
+    { id: 'coin', icon: 'dices', name: 'Coin Flip', description: 'Make a quick call and let a virtual coin decide heads or tails.', tone: 'amber', art: ['H', '50/50', 'T'] },
+    { id: 'dice', icon: 'dices', name: 'Dice Roll', description: 'Roll a six-sided die and see what number comes up.', tone: 'blue', art: ['1', '2', '6'] },
+    { id: 'scramble', icon: 'book-open', name: 'Word Scramble', description: 'Rearrange the mixed-up letters into a familiar word.', tone: 'violet', art: ['A', 'B', 'Z'] },
+    { id: 'hangman', icon: 'pencil-line', name: 'Hangman', description: 'Guess the hidden word one letter at a time. You have six misses.', tone: 'amber', art: ['A', 'B', 'C'] },
+    { id: 'reaction', icon: 'clock-3', name: 'Reaction Test', description: 'Wait for the signal, then tap as quickly as you can.', tone: 'blue', art: ['WAIT', 'GO!', 'MS'] },
+    { id: 'higher', icon: 'trending-up', name: 'Higher or Lower', description: 'Guess whether the next number will be higher or lower.', tone: 'green', art: ['7', '↑', '12'] },
+    { id: 'color', icon: 'palette', name: 'Color Match', description: 'Match the color swatch to its name before the next round.', tone: 'pink', art: ['BLUE', 'RED', 'GREEN'] },
+    { id: 'odd', icon: 'scan-search', name: 'Odd One Out', description: 'Spot the one shape that does not belong in the grid.', tone: 'cyan', art: ['●', '●', '▲'] }
+  ];
+
+  function gameArtwork(game) {
+    const tileColors = game.id === 'color' ? ['#dbeafe', '#fee2e2', '#dcfce7'] : ['#dbeafe', '#ede9fe', '#fef3c7'];
+    const inkColors = game.id === 'color' ? ['#1d4ed8', '#b91c1c', '#15803d'] : ['#1d4ed8', '#6d28d9', '#b45309'];
+    const tiles = game.art.map(function (label, index) {
+      const x = 20 + index * 100;
+      const fontSize = label.length > 7 ? 12 : label.length > 3 ? 15 : 30;
+      return '<rect x="' + x + '" y="17" width="82" height="76" rx="16" fill="' + tileColors[index] + '"/>' +
+        '<text x="' + (x + 41) + '" y="64" text-anchor="middle" fill="' + inkColors[index] + '" font-size="' + fontSize + '" font-weight="800" font-family="system-ui, sans-serif">' + escapeHtml(label) + '</text>';
+    }).join('');
+    return '<svg class="game-art" viewBox="0 0 320 110" role="img" aria-label="' + escapeHtml(game.name) + ' game illustration" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="110" rx="14" fill="#f8fafc"/>' + tiles + '</svg>';
+  }
+
+  const colorPalette = [
+    { name: 'Blue', value: '#2563eb' },
+    { name: 'Green', value: '#16a34a' },
+    { name: 'Red', value: '#dc2626' },
+    { name: 'Purple', value: '#9333ea' }
+  ];
+
+  function makeColorRound() {
+    const target = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+    return {
+      target: target,
+      choices: colorPalette.slice().sort(function () {
+        return Math.random() - 0.5;
+      })
+    };
+  }
+
+  function makeOddRound() {
+    const shapes = ['●', '▲', '■', '◆'];
+    const commonIndex = Math.floor(Math.random() * shapes.length);
+    let oddIndex = Math.floor(Math.random() * shapes.length);
+    while (oddIndex === commonIndex) {
+      oddIndex = Math.floor(Math.random() * shapes.length);
+    }
+    return {
+      common: shapes[commonIndex],
+      odd: shapes[oddIndex],
+      oddIndex: Math.floor(Math.random() * 9)
+    };
+  }
+
   const sourceVisuals = {
     'CM LAB': { icon: 'laptop', tone: 'cyan' },
     DAA: { icon: 'code-2', tone: 'violet' },
@@ -144,7 +203,16 @@
     hangmanGuesses: [],
     reactionStatus: 'idle',
     reactionResult: '',
-    reactionStarted: 0
+    reactionStarted: 0,
+    higherNumber: Math.floor(Math.random() * 13) + 1,
+    higherScore: 0,
+    higherMessage: 'Will the next number be higher or lower?',
+    colorRound: makeColorRound(),
+    colorScore: 0,
+    colorMessage: 'Match the swatch to its color name.',
+    oddRound: makeOddRound(),
+    oddScore: 0,
+    oddMessage: 'Tap the one shape that is different.'
   };
 
   let toastTimer;
@@ -307,7 +375,7 @@
       state.page = 'games';
       state.activeNav = 'Games';
       const game = path[1];
-      state.gameChoice = ['guess', 'rps', 'math', 'tic', 'memory', 'coin', 'dice', 'scramble', 'hangman', 'reaction'].indexOf(game) !== -1 ? game : '';
+      state.gameChoice = games.some(function (item) { return item.id === game; }) ? game : '';
     } else {
       state.page = 'home';
       state.activeNav = 'Home';
@@ -431,15 +499,12 @@
         '<button type="button" data-action="preview" data-resource-id="' + escapeHtml(resource.id) + '" aria-label="Open ' + escapeHtml(resource.title) + '">' + icon('arrow-right', 18) + '</button></div>' +
       '</article>';
     }).join('');
-    const featuredGames = [
-      ['math', 'calculator', 'Quick Math', 'Warm up with a few bite-sized number puzzles.', 'violet'],
-      ['memory', 'sparkles', 'Memory Match', 'Flip cards and find every matching pair.', 'pink'],
-      ['scramble', 'case-sensitive', 'Word Scramble', 'Untangle the letters to reveal the word.', 'amber']
-    ].map(function (game) {
+    const featuredGames = ['math', 'memory', 'scramble'].map(function (id) {
+      const game = games.find(function (item) { return item.id === id; });
       return '<article class="home-game-card">' +
-        '<span class="game-card-icon tone-' + game[4] + '">' + icon(game[1], 22) + '</span>' +
-        '<h3>' + game[2] + '</h3><p>' + game[3] + '</p>' +
-        '<button type="button" class="text-action" data-route="#/games/' + game[0] + '">Play now ' + icon('arrow-right', 16) + '</button>' +
+        gameArtwork(game) +
+        '<h3>' + game.name + '</h3><p>' + game.description + '</p>' +
+        '<button type="button" class="text-action" data-route="#/games/' + game.id + '">Play now ' + icon('arrow-right', 16) + '</button>' +
       '</article>';
     }).join('');
 
@@ -686,22 +751,12 @@
   }
 
   function gamesPage() {
-    const cards = state.gameChoice ? '' : [
-      ['guess', 'search', 'Number Guess', 'Find the hidden number from 1 to 100. Get a hint after each guess.'],
-      ['rps', 'dices', 'Rock Paper Scissors', 'Choose your move and see if you can beat the computer.'],
-      ['math', 'atom', 'Quick Math', 'Solve bite-sized addition, subtraction and multiplication questions.'],
-      ['tic', 'layout-grid', 'Tic-Tac-Toe', 'Take turns with a friend and try to get three marks in a row.'],
-      ['memory', 'sparkles', 'Memory Match', 'Flip the cards and find all four matching pairs in as few moves as you can.'],
-      ['coin', 'dices', 'Coin Flip', 'Make a quick call and let a virtual coin decide heads or tails.'],
-      ['dice', 'dices', 'Dice Roll', 'Roll a six-sided die and see what number comes up.'],
-      ['scramble', 'book-open', 'Word Scramble', 'Rearrange the mixed-up letters into a familiar word.'],
-      ['hangman', 'pencil-line', 'Hangman', 'Guess the hidden word one letter at a time. You have six misses.'],
-      ['reaction', 'clock-3', 'Reaction Test', 'Wait for the signal, then tap as quickly as you can.']
-    ].map(function (game) {
-      return '<article class="game-card' + (state.gameChoice === game[0] ? ' selected' : '') + '">' +
-        '<span class="game-card-icon tone-' + (game[0] === 'guess' ? 'blue' : game[0] === 'rps' ? 'violet' : 'amber') + '">' + icon(game[1], 22) + '</span>' +
-        '<h2>' + game[2] + '</h2><p>' + game[3] + '</p>' +
-        '<button type="button" class="button button-secondary" data-action="select-game" data-game="' + game[0] + '">Play game ' + icon('arrow-right', 16) + '</button>' +
+    const cards = state.gameChoice ? '' : games.map(function (game) {
+      return '<article class="game-card' + (state.gameChoice === game.id ? ' selected' : '') + '">' +
+        gameArtwork(game) +
+        '<span class="game-card-icon tone-' + game.tone + '">' + icon(game.icon, 22) + '</span>' +
+        '<h2>' + game.name + '</h2><p>' + game.description + '</p>' +
+        '<button type="button" class="button button-secondary" data-action="select-game" data-game="' + game.id + '">Play game ' + icon('arrow-right', 16) + '</button>' +
       '</article>';
     }).join('');
 
@@ -758,10 +813,29 @@
       const reactionMessage = state.reactionResult ? 'Reaction time: ' + state.reactionResult : state.reactionStatus === 'early' ? 'Wait until the pad turns green before tapping.' : 'The signal appears after a random delay.';
       const startLabel = state.reactionStatus === 'waiting' || state.reactionStatus === 'ready' ? 'Try again' : 'Start test';
       panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Reaction Test</span><h2>' + reactionTitle + '</h2></div><button type="button" class="button button-secondary small" data-action="start-reaction">' + startLabel + '</button></div><button type="button" class="reaction-pad' + padClass + '" data-action="reaction-click"' + (state.reactionStatus === 'waiting' || state.reactionStatus === 'ready' ? '' : ' disabled') + '>' + padText + '</button><p class="game-feedback" role="status">' + reactionMessage + '</p></section>';
+    } else if (state.gameChoice === 'higher') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Higher or Lower</span><h2>What comes next?</h2></div><span class="game-score">Score: ' + state.higherScore + '</span></div>' +
+        '<div class="higher-card"><span>Current number</span><strong>' + state.higherNumber + '</strong></div>' +
+        '<div class="game-choice-row"><button type="button" class="button button-secondary" data-action="higher-choice" data-choice="higher">Higher</button><button type="button" class="button button-secondary" data-action="higher-choice" data-choice="lower">Lower</button></div>' +
+        '<p class="game-feedback" role="status">' + escapeHtml(state.higherMessage) + '</p><button type="button" class="button button-secondary small" data-action="reset-higher">Start over</button></section>';
+    } else if (state.gameChoice === 'color') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Color Match</span><h2>Which color is this?</h2></div><span class="game-score">Score: ' + state.colorScore + '</span></div>' +
+        '<div class="color-target" style="background-color:' + state.colorRound.target.value + '" role="img" aria-label="Color swatch"></div>' +
+        '<div class="game-choice-row color-choices">' + state.colorRound.choices.map(function (choice) {
+          return '<button type="button" class="button button-secondary" data-action="color-choice" data-choice="' + choice.name + '">' + choice.name + '</button>';
+        }).join('') + '</div>' +
+        '<p class="game-feedback" role="status">' + escapeHtml(state.colorMessage) + '</p><button type="button" class="button button-secondary small" data-action="reset-color">Reset score</button></section>';
+    } else if (state.gameChoice === 'odd') {
+      panel = '<section class="game-play-panel"><div class="game-panel-heading"><div><span class="section-eyebrow">Odd One Out</span><h2>Find the different shape</h2></div><span class="game-score">Score: ' + state.oddScore + '</span></div>' +
+        '<div class="odd-board" role="group" aria-label="Choose the shape that is different">' + Array.from({ length: 9 }, function (_, index) {
+          const shape = index === state.oddRound.oddIndex ? state.oddRound.odd : state.oddRound.common;
+          return '<button type="button" class="odd-cell" data-action="odd-choice" data-cell="' + index + '" aria-label="Shape ' + (index + 1) + ': ' + shape + '">' + shape + '</button>';
+        }).join('') + '</div>' +
+        '<p class="game-feedback" role="status">' + escapeHtml(state.oddMessage) + '</p><button type="button" class="button button-secondary small" data-action="reset-odd">Reset score</button></section>';
     }
 
-    const titles = { guess: 'Number Guess', rps: 'Rock Paper Scissors', math: 'Quick Math', tic: 'Tic-Tac-Toe', memory: 'Memory Match', coin: 'Coin Flip', dice: 'Dice Roll', scramble: 'Word Scramble', hangman: 'Hangman', reaction: 'Reaction Test' };
-    const heading = state.gameChoice ? titles[state.gameChoice] : 'Quick games';
+    const selectedGame = games.find(function (game) { return game.id === state.gameChoice; });
+    const heading = selectedGame ? selectedGame.name : 'Quick games';
     const intro = state.gameChoice ? 'Play a quick round, then head back to choose another game.' : 'Take a short brain break with these simple, free-to-play games.';
     const back = state.gameChoice ? '<button type="button" class="back-button games-back" data-route="#/games">' + icon('chevron-left', 18) + ' All games</button>' : '';
     return '<main class="games-page container"><section class="games-heading"><span class="eyebrow">' + icon('gamepad-2', 16) + ' A little break</span><h1>' + heading + '</h1><p>' + intro + '</p></section>' + back + (state.gameChoice ? '' : '<div class="games-grid">' + cards + '</div>') + panel + '</main>';
@@ -899,6 +973,54 @@
 
     if (action === 'select-game') {
       routeTo('#/games/' + target.dataset.game);
+    } else if (action === 'higher-choice') {
+      const nextNumber = Math.floor(Math.random() * 13) + 1;
+      const wasHigher = nextNumber > state.higherNumber;
+      const wasLower = nextNumber < state.higherNumber;
+      if (!wasHigher && !wasLower) {
+        state.higherMessage = 'It was a tie! Try the next number.';
+      } else {
+        const correct = target.dataset.choice === 'higher' ? wasHigher : wasLower;
+        state.higherMessage = correct ? 'Correct! It was ' + (wasHigher ? 'higher' : 'lower') + '.' : 'Not quite — it was ' + (wasHigher ? 'higher' : 'lower') + '.';
+        if (correct) {
+          state.higherScore += 1;
+        }
+      }
+      state.higherNumber = nextNumber;
+      render();
+    } else if (action === 'reset-higher') {
+      state.higherNumber = Math.floor(Math.random() * 13) + 1;
+      state.higherScore = 0;
+      state.higherMessage = 'Will the next number be higher or lower?';
+      render();
+    } else if (action === 'color-choice') {
+      if (target.dataset.choice === state.colorRound.target.name) {
+        state.colorScore += 1;
+        state.colorMessage = 'Correct! Find the next color.';
+      } else {
+        state.colorMessage = 'Not quite — the swatch was ' + state.colorRound.target.name + '.';
+      }
+      state.colorRound = makeColorRound();
+      render();
+    } else if (action === 'reset-color') {
+      state.colorScore = 0;
+      state.colorMessage = 'Match the swatch to its color name.';
+      state.colorRound = makeColorRound();
+      render();
+    } else if (action === 'odd-choice') {
+      if (Number(target.dataset.cell) === state.oddRound.oddIndex) {
+        state.oddScore += 1;
+        state.oddMessage = 'You found it! Here comes another grid.';
+        state.oddRound = makeOddRound();
+      } else {
+        state.oddMessage = 'Not that one — look for the different shape.';
+      }
+      render();
+    } else if (action === 'reset-odd') {
+      state.oddScore = 0;
+      state.oddMessage = 'Tap the one shape that is different.';
+      state.oddRound = makeOddRound();
+      render();
     } else if (action === 'flip-coin') {
       state.coinResult = Math.random() < 0.5 ? 'Heads!' : 'Tails!';
       render();

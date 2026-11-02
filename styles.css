@@ -228,7 +228,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .home-games-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
 .home-game-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 210px; padding: 19px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: 0 5px 11px rgba(15, 23, 42, .018); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
 .home-game-card:hover { border-color: var(--blue-border); box-shadow: var(--shadow); transform: translateY(-3px); }
-.home-game-card h3 { margin: 15px 0 6px; font-size: 15px; letter-spacing: -.02em; }
+.game-art { display: block; width: 100%; height: 110px; margin-bottom: 18px; border-radius: 14px; }
+.home-game-card .game-art { margin-bottom: 0; }
+.home-game-card h3 { margin: 8px 0 6px; font-size: 15px; letter-spacing: -.02em; }
 .home-game-card p { margin: 0 0 14px; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .home-game-card .text-action { margin-top: auto; font-size: 12px; }
 .site-footer { border-top: 1px solid var(--border); background: var(--surface); }
@@ -252,6 +254,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .game-card { padding: 23px; border: 1px solid var(--border); border-radius: 17px; background: var(--surface); box-shadow: var(--shadow); }
 .game-card.selected { border-color: var(--blue-border); }
 .game-card-icon { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 13px; }
+.game-card .game-art { margin-bottom: 16px; }
 .game-card h2 { margin: 17px 0 8px; font-size: 18px; letter-spacing: -.025em; }
 .game-card p { min-height: 66px; margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.65; }
 .game-card .button { width: 100%; }
@@ -266,6 +269,14 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .game-score { margin: 0; color: var(--muted); font-size: 13px; font-weight: 650; }
 .game-choice-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .game-choice-row .button { min-width: 120px; }
+.higher-card { width: min(230px, 100%); display: flex; flex-direction: column; align-items: center; gap: 5px; margin: 24px auto 0; padding: 18px; border: 1px solid var(--border); border-radius: 17px; background: var(--surface-muted); }
+.higher-card span { color: var(--muted); font-size: 12px; font-weight: 650; }
+.higher-card strong { color: var(--blue); font-size: 42px; line-height: 1.15; }
+.color-target { width: 120px; height: 88px; margin: 24px auto 0; border: 5px solid var(--surface); border-radius: 16px; box-shadow: 0 0 0 1px var(--border), var(--shadow); }
+.color-choices { justify-content: center; }
+.odd-board { width: min(310px, 100%); display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 22px auto 0; }
+.odd-cell { aspect-ratio: 1; border: 1px solid var(--border); border-radius: 12px; color: var(--blue); background: var(--surface-muted); font-size: 27px; font-weight: 800; transition: background .15s ease, transform .15s ease; }
+.odd-cell:hover { background: var(--blue-soft); transform: scale(1.04); }
 .games-back { margin: -8px 0 20px; }
 .dark .game-form input { color-scheme: dark; }
 
