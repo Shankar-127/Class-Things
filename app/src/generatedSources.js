@@ -7,11 +7,11 @@ export const sourceSubjects = [
   },
   {
     "name": "DAA",
-    "fileCount": 6
+    "fileCount": 11
   },
   {
     "name": "DBMS",
-    "fileCount": 11
+    "fileCount": 17
   },
   {
     "name": "DBMS LAB",
@@ -27,11 +27,11 @@ export const sourceSubjects = [
   },
   {
     "name": "JAVA",
-    "fileCount": 9
+    "fileCount": 15
   },
   {
     "name": "JAVA LAB",
-    "fileCount": 11
+    "fileCount": 12
   },
   {
     "name": "LABS",
@@ -48,6 +48,204 @@ export const sourceSubjects = [
 ]
 
 export const sourceResources = [
+  {
+    "id": "JAVA LAB/WEEK12 (2).pdf",
+    "subject": "JAVA LAB",
+    "filename": "WEEK12 (2).pdf",
+    "title": "WEEK12 (2)",
+    "type": "PDF",
+    "size": "619 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706905028,
+    "url": "./sources/JAVA%20LAB/WEEK12%20(2).pdf"
+  },
+  {
+    "id": "DBMS/NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics.pdf",
+    "subject": "DBMS",
+    "filename": "NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics.pdf",
+    "title": "NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics",
+    "type": "PDF",
+    "size": "855 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706872795,
+    "url": "./sources/DBMS/NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics.pdf"
+  },
+  {
+    "id": "DBMS/UNIT-V(NORMALIZATION) NOTES (1).pdf",
+    "subject": "DBMS",
+    "filename": "UNIT-V(NORMALIZATION) NOTES (1).pdf",
+    "title": "UNIT-V(NORMALIZATION) NOTES (1)",
+    "type": "PDF",
+    "size": "464 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706784362,
+    "url": "./sources/DBMS/UNIT-V(NORMALIZATION)%20NOTES%20(1).pdf"
+  },
+  {
+    "id": "DBMS/DBMS UNIT-V.pdf",
+    "subject": "DBMS",
+    "filename": "DBMS UNIT-V.pdf",
+    "title": "DBMS UNIT-V",
+    "type": "PDF",
+    "size": "757 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706777845,
+    "url": "./sources/DBMS/DBMS%20UNIT-V.pdf"
+  },
+  {
+    "id": "DBMS/DBMS Notes_unit-3B.pdf",
+    "subject": "DBMS",
+    "filename": "DBMS Notes_unit-3B.pdf",
+    "title": "DBMS Notes_unit-3B",
+    "type": "PDF",
+    "size": "23.7 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706769028,
+    "url": "./sources/DBMS/DBMS%20Notes_unit-3B.pdf"
+  },
+  {
+    "id": "DBMS/Unit 4.pdf",
+    "subject": "DBMS",
+    "filename": "Unit 4.pdf",
+    "title": "Unit 4",
+    "type": "PDF",
+    "size": "570 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706753155,
+    "url": "./sources/DBMS/Unit%204.pdf"
+  },
+  {
+    "id": "DBMS/DBMS Notes_unit-3B (1).pdf",
+    "subject": "DBMS",
+    "filename": "DBMS Notes_unit-3B (1).pdf",
+    "title": "DBMS Notes_unit-3B (1)",
+    "type": "PDF",
+    "size": "23.7 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706720905,
+    "url": "./sources/DBMS/DBMS%20Notes_unit-3B%20(1).pdf"
+  },
+  {
+    "id": "JAVA/Unit 3 part B.pdf",
+    "subject": "JAVA",
+    "filename": "Unit 3 part B.pdf",
+    "title": "Unit 3 part B",
+    "type": "PDF",
+    "size": "1.07 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706652517,
+    "url": "./sources/JAVA/Unit%203%20part%20B.pdf"
+  },
+  {
+    "id": "JAVA/Unit 4 Event Handling.pdf",
+    "subject": "JAVA",
+    "filename": "Unit 4 Event Handling.pdf",
+    "title": "Unit 4 Event Handling",
+    "type": "PDF",
+    "size": "1.10 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706645807,
+    "url": "./sources/JAVA/Unit%204%20Event%20Handling.pdf"
+  },
+  {
+    "id": "JAVA/swing notes pdf.pdf",
+    "subject": "JAVA",
+    "filename": "swing notes pdf.pdf",
+    "title": "swing notes pdf",
+    "type": "PDF",
+    "size": "876 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706639338,
+    "url": "./sources/JAVA/swing%20notes%20pdf.pdf"
+  },
+  {
+    "id": "JAVA/Layout Managers.pdf",
+    "subject": "JAVA",
+    "filename": "Layout Managers.pdf",
+    "title": "Layout Managers",
+    "type": "PDF",
+    "size": "799 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706632765,
+    "url": "./sources/JAVA/Layout%20Managers.pdf"
+  },
+  {
+    "id": "JAVA/Servlets Notes.pdf",
+    "subject": "JAVA",
+    "filename": "Servlets Notes.pdf",
+    "title": "Servlets Notes",
+    "type": "PDF",
+    "size": "1.44 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706626714,
+    "url": "./sources/JAVA/Servlets%20Notes.pdf"
+  },
+  {
+    "id": "JAVA/JDBC Notes.pdf",
+    "subject": "JAVA",
+    "filename": "JDBC Notes.pdf",
+    "title": "JDBC Notes",
+    "type": "PDF",
+    "size": "1.01 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706620017,
+    "url": "./sources/JAVA/JDBC%20Notes.pdf"
+  },
+  {
+    "id": "DAA/daa-prev yr qs.pdf",
+    "subject": "DAA",
+    "filename": "daa-prev yr qs.pdf",
+    "title": "daa-prev yr qs",
+    "type": "PDF",
+    "size": "2.98 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706590670,
+    "url": "./sources/DAA/daa-prev%20yr%20qs.pdf"
+  },
+  {
+    "id": "DAA/unit3 part2 complete notes.pdf",
+    "subject": "DAA",
+    "filename": "unit3 part2 complete notes.pdf",
+    "title": "unit3 part2 complete notes",
+    "type": "PDF",
+    "size": "2.45 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793627749056,
+    "url": "./sources/DAA/unit3%20part2%20complete%20notes.pdf"
+  },
+  {
+    "id": "DAA/DAA IV-Unit- BACK TRACKING.pdf",
+    "subject": "DAA",
+    "filename": "DAA IV-Unit- BACK TRACKING.pdf",
+    "title": "DAA IV-Unit- BACK TRACKING",
+    "type": "PDF",
+    "size": "4.63 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793627736164,
+    "url": "./sources/DAA/DAA%20IV-Unit-%20BACK%20TRACKING.pdf"
+  },
+  {
+    "id": "DAA/DAA IV-Unit- BRANCH AND BOUND.pdf",
+    "subject": "DAA",
+    "filename": "DAA IV-Unit- BRANCH AND BOUND.pdf",
+    "title": "DAA IV-Unit- BRANCH AND BOUND",
+    "type": "PDF",
+    "size": "4.18 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793627691811,
+    "url": "./sources/DAA/DAA%20IV-Unit-%20BRANCH%20AND%20BOUND.pdf"
+  },
+  {
+    "id": "DAA/DAA Unit V notes .pdf",
+    "subject": "DAA",
+    "filename": "DAA Unit V notes .pdf",
+    "title": "DAA Unit V notes ",
+    "type": "PDF",
+    "size": "2.17 MB",
+    "modifiedAt": "Nov 2, 2026",
+    "modifiedMs": 1793627652689,
+    "url": "./sources/DAA/DAA%20Unit%20V%20notes%20.pdf"
+  },
   {
     "id": "SDT/UNIT- V Statistical Learning.pdf",
     "subject": "SDT",
@@ -767,5 +965,5 @@ export const sourceResources = [
 
 export const sourceSummary = {
   "subjectCount": 11,
-  "fileCount": 65
+  "fileCount": 83
 }

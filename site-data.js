@@ -12,11 +12,11 @@
   },
   {
     "name": "DAA",
-    "fileCount": 10
+    "fileCount": 11
   },
   {
     "name": "DBMS",
-    "fileCount": 11
+    "fileCount": 17
   },
   {
     "name": "DBMS LAB",
@@ -32,11 +32,11 @@
   },
   {
     "name": "JAVA",
-    "fileCount": 9
+    "fileCount": 15
   },
   {
     "name": "JAVA LAB",
-    "fileCount": 11
+    "fileCount": 12
   },
   {
     "name": "LABS",
@@ -53,6 +53,273 @@
 ];
 
   const resources = [
+  {
+    "id": "JAVA LAB/WEEK12 (2).pdf",
+    "subject": "JAVA LAB",
+    "filename": "WEEK12 (2).pdf",
+    "title": "Week 12",
+    "type": "PDF",
+    "category": "Lab exercises",
+    "unit": "Week 12",
+    "summary": "Java lab exercises and reference material for Week 12.",
+    "topics": [
+      "Java",
+      "lab exercises",
+      "Week 12"
+    ],
+    "size": "619 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706905028,
+    "url": "./Sources/JAVA%20LAB/WEEK12%20(2).pdf"
+  },
+  {
+    "id": "DBMS/NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics.pdf",
+    "subject": "DBMS",
+    "filename": "NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics.pdf",
+    "title": "NoSQL Introduction: MongoDB Models and RDBMS Comparison",
+    "type": "PDF",
+    "category": "Reference",
+    "unit": "NoSQL and MongoDB",
+    "summary": "An introduction to NoSQL and MongoDB models with an RDBMS comparison.",
+    "topics": [
+      "DBMS",
+      "NoSQL",
+      "MongoDB",
+      "RDBMS"
+    ],
+    "size": "855 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706872795,
+    "url": "./Sources/DBMS/NoSQL_Introduction_MongoDB_Models_RDBMS_Comparison_With_Infographics.pdf"
+  },
+  {
+    "id": "DBMS/UNIT-V(NORMALIZATION) NOTES (1).pdf",
+    "subject": "DBMS",
+    "filename": "UNIT-V(NORMALIZATION) NOTES (1).pdf",
+    "title": "Unit V Normalization Notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit V: Normalization",
+    "summary": "DBMS notes covering normalization topics from Unit V.",
+    "topics": [
+      "DBMS",
+      "normalization",
+      "Unit V"
+    ],
+    "size": "464 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706784362,
+    "url": "./Sources/DBMS/UNIT-V(NORMALIZATION)%20NOTES%20(1).pdf"
+  },
+  {
+    "id": "DBMS/DBMS UNIT-V.pdf",
+    "subject": "DBMS",
+    "filename": "DBMS UNIT-V.pdf",
+    "title": "DBMS Unit V",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit V",
+    "summary": "DBMS lecture notes for Unit V.",
+    "topics": [
+      "DBMS",
+      "Unit V",
+      "revision"
+    ],
+    "size": "757 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706777845,
+    "url": "./Sources/DBMS/DBMS%20UNIT-V.pdf"
+  },
+  {
+    "id": "DBMS/DBMS Notes_unit-3B.pdf",
+    "subject": "DBMS",
+    "filename": "DBMS Notes_unit-3B.pdf",
+    "title": "DBMS Unit 3B Notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit 3B",
+    "summary": "DBMS lecture notes covering Unit 3B.",
+    "topics": [
+      "DBMS",
+      "Unit 3B",
+      "revision"
+    ],
+    "size": "23.7 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706769028,
+    "url": "./Sources/DBMS/DBMS%20Notes_unit-3B.pdf"
+  },
+  {
+    "id": "DBMS/Unit 4.pdf",
+    "subject": "DBMS",
+    "filename": "Unit 4.pdf",
+    "title": "DBMS Unit 4",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit 4",
+    "summary": "DBMS lecture notes for Unit 4.",
+    "topics": [
+      "DBMS",
+      "Unit 4",
+      "revision"
+    ],
+    "size": "570 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706753155,
+    "url": "./Sources/DBMS/Unit%204.pdf"
+  },
+  {
+    "id": "DBMS/DBMS Notes_unit-3B (1).pdf",
+    "subject": "DBMS",
+    "filename": "DBMS Notes_unit-3B (1).pdf",
+    "title": "DBMS Unit 3B Notes (Copy)",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit 3B",
+    "summary": "A second copy of the DBMS lecture notes covering Unit 3B.",
+    "topics": [
+      "DBMS",
+      "Unit 3B",
+      "revision"
+    ],
+    "size": "23.7 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706720905,
+    "url": "./Sources/DBMS/DBMS%20Notes_unit-3B%20(1).pdf"
+  },
+  {
+    "id": "JAVA/Unit 3 part B.pdf",
+    "subject": "JAVA",
+    "filename": "Unit 3 part B.pdf",
+    "title": "Java Unit 3 Part B",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit 3, Part B",
+    "summary": "Java lecture notes for Unit 3, Part B.",
+    "topics": [
+      "Java",
+      "Unit 3",
+      "revision"
+    ],
+    "size": "1.07 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706652517,
+    "url": "./Sources/JAVA/Unit%203%20part%20B.pdf"
+  },
+  {
+    "id": "JAVA/Unit 4 Event Handling.pdf",
+    "subject": "JAVA",
+    "filename": "Unit 4 Event Handling.pdf",
+    "title": "Java Unit 4 Event Handling",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Unit 4: Event Handling",
+    "summary": "Java notes on event handling concepts from Unit 4.",
+    "topics": [
+      "Java",
+      "event handling",
+      "Unit 4"
+    ],
+    "size": "1.10 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706645807,
+    "url": "./Sources/JAVA/Unit%204%20Event%20Handling.pdf"
+  },
+  {
+    "id": "JAVA/swing notes pdf.pdf",
+    "subject": "JAVA",
+    "filename": "swing notes pdf.pdf",
+    "title": "Java Swing Notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Swing",
+    "summary": "Java notes covering Swing and graphical user interfaces.",
+    "topics": [
+      "Java",
+      "Swing",
+      "GUI"
+    ],
+    "size": "876 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706639338,
+    "url": "./Sources/JAVA/swing%20notes%20pdf.pdf"
+  },
+  {
+    "id": "JAVA/Layout Managers.pdf",
+    "subject": "JAVA",
+    "filename": "Layout Managers.pdf",
+    "title": "Java Layout Managers",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Layout managers",
+    "summary": "Java notes covering layout managers for arranging interface components.",
+    "topics": [
+      "Java",
+      "layout managers",
+      "GUI"
+    ],
+    "size": "799 KB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706632765,
+    "url": "./Sources/JAVA/Layout%20Managers.pdf"
+  },
+  {
+    "id": "JAVA/Servlets Notes.pdf",
+    "subject": "JAVA",
+    "filename": "Servlets Notes.pdf",
+    "title": "Java Servlets Notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "Servlets",
+    "summary": "Java notes introducing servlets and web application development.",
+    "topics": [
+      "Java",
+      "servlets",
+      "web development"
+    ],
+    "size": "1.44 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706626714,
+    "url": "./Sources/JAVA/Servlets%20Notes.pdf"
+  },
+  {
+    "id": "JAVA/JDBC Notes.pdf",
+    "subject": "JAVA",
+    "filename": "JDBC Notes.pdf",
+    "title": "Java JDBC Notes",
+    "type": "PDF",
+    "category": "Lecture notes",
+    "unit": "JDBC",
+    "summary": "Java notes covering JDBC database connectivity.",
+    "topics": [
+      "Java",
+      "JDBC",
+      "database connectivity"
+    ],
+    "size": "1.01 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706620017,
+    "url": "./Sources/JAVA/JDBC%20Notes.pdf"
+  },
+  {
+    "id": "DAA/daa-prev yr qs.pdf",
+    "subject": "DAA",
+    "filename": "daa-prev yr qs.pdf",
+    "title": "DAA Previous Year Questions",
+    "type": "PDF",
+    "category": "Question bank",
+    "unit": "Previous year questions",
+    "summary": "Previous-year questions for Design and Analysis of Algorithms.",
+    "topics": [
+      "DAA",
+      "previous year questions",
+      "exam practice"
+    ],
+    "size": "2.98 MB",
+    "modifiedAt": "Nov 3, 2026",
+    "modifiedMs": 1793706590670,
+    "url": "./Sources/DAA/daa-prev%20yr%20qs.pdf"
+  },
   {
     "id": "SDT/UNIT- V Statistical Learning.pdf",
     "subject": "SDT",
@@ -1522,7 +1789,7 @@
 
   const summary = {
   "subjectCount": 11,
-  "fileCount": 69
+  "fileCount": 83
 };
 
   window.CLASS_THINGS_DATA = { subjects, resources, subjectGuides, summary };
